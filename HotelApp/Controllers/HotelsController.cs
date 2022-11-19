@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HotelApp.EF;
 using HotelApp.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace HotelApp.Controllers
 {
@@ -25,6 +27,7 @@ namespace HotelApp.Controllers
         {
             try
             {
+                var currentUser = GetCurrentUser();
                 return Ok(await _context.Hotels.ToListAsync());
             }
             catch (Exception ex)
@@ -33,12 +36,12 @@ namespace HotelApp.Controllers
             }
         }
 
-        // GET: api/Hotels/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Hotel>> GetHotel(int id)
         {
             try
             {
+                var currentUser = GetCurrentUser();
                 var hotel = await _context.Hotels.FirstOrDefaultAsync(x => x.Hotel_id == id);
                 return Ok(hotel);
             }
@@ -48,10 +51,12 @@ namespace HotelApp.Controllers
             }
         }
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutHotel(int id, Hotel hotel)
         {
             try
             {
+                var currentUser = GetCurrentUser();
                 Hotel hotel1 = _context.Hotels.FirstOrDefault(x => x.Hotel_id == id);
                 if (hotel1 != null)
                 {
@@ -76,10 +81,12 @@ namespace HotelApp.Controllers
             }
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Hotel>> PostHotel(Hotel hotel)
         {
             try
             {
+                var currentUser = GetCurrentUser();
                 _context.Hotels.Add(hotel);
                 await _context.SaveChangesAsync();
                 return Ok("$Hi admin");
@@ -90,10 +97,12 @@ namespace HotelApp.Controllers
             }
         }
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteHotel(int id)
         {
             try
             {
+                var currentUser = GetCurrentUser();
                 var hotel = await _context.Hotels.FirstOrDefaultAsync(x => x.Hotel_id == id);
                 _context.Hotels.Remove(hotel);
                 await _context.SaveChangesAsync();
@@ -102,6 +111,29 @@ namespace HotelApp.Controllers
             catch (Exception ex)
             {
                 return NotFound(ex);
+            }
+        }
+
+        private LoggedInUser GetCurrentUser()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity != null)
+            {
+                var userClaims = identity.Claims;
+
+                return new LoggedInUser
+                {
+                    FirstName = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.GivenName)?.Value,
+                    LastName = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Surname)?.Value,
+                    EmailAdress = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value,
+                    UserName = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value,
+                    RoleValue = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value,
+                };
+            }
+            else
+            {
+                return null;
             }
         }
     }

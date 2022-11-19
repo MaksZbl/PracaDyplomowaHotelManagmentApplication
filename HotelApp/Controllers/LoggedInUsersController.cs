@@ -14,23 +14,23 @@ namespace HotelApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RoomsController : ControllerBase
+    public class LoggedInUsersController : ControllerBase
     {
         private readonly HotelAppDbContext _context;
 
-        public RoomsController(HotelAppDbContext context)
+        public LoggedInUsersController(HotelAppDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Rooms
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<IEnumerable<LoggedInUser>>> GetUsers()
         {
             try
             {
                 var currentUser = GetCurrentUser();
-                return Ok(await _context.Rooms.ToListAsync());
+                return Ok(await _context.Users.ToListAsync());
             }
             catch (Exception ex)
             {
@@ -38,15 +38,15 @@ namespace HotelApp.Controllers
             }
         }
 
-        // GET: api/Rooms/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Room>> GetRoom(int id)
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<LoggedInUser>> GetLoggedInUser(int id)
         {
             try
             {
                 var currentUser = GetCurrentUser();
-                var room = await _context.Rooms.FirstOrDefaultAsync(x => x.Room_id == id);
-                return Ok(room);
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.User_id == id);
+                return Ok(user);
             }
             catch (ArgumentNullException ex)
             {
@@ -55,27 +55,27 @@ namespace HotelApp.Controllers
         }
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> PutRoom(int id, Room room)
+        public async Task<IActionResult> PutLoggedInUser(int id, LoggedInUser loggedInUser)
         {
             try
             {
                 var currentUser = GetCurrentUser();
-                Room room1 = _context.Rooms.FirstOrDefault(x => x.Room_id == id);
-                if (room1 != null)
+                var user1 = _context.Users.FirstOrDefault(x => x.User_id == id);
+                if (user1 != null)
                 {
-                    room1.Number = room.Number;
-                    room1.Rent = room.Rent;
-                    room1.Description = room.Description;
-                    room1.Type = room.Type;
-                    room1.HotelId = room.HotelId;
-                    room1.IsFree = room.IsFree;
-                    _context.Rooms.Update(room1);
+                    user1.FirstName = loggedInUser.FirstName;
+                    user1.LastName = loggedInUser.LastName;
+                    user1.RegistrationDate = loggedInUser.RegistrationDate;
+                    user1.UserName = loggedInUser.UserName;
+                    user1.RoleValue = loggedInUser.RoleValue;
+                    user1.Password = loggedInUser.Password;
+                    _context.Users.Update(user1);
                     await _context.SaveChangesAsync();
                     return Ok();
                 }
                 else
                 {
-                    _context.Rooms.Add(room);
+                    _context.Users.Add(loggedInUser);
                     await _context.SaveChangesAsync();
                     return Ok();
                 }
@@ -87,12 +87,12 @@ namespace HotelApp.Controllers
         }
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<Room>> PostRoom(Room room)
+        public async Task<ActionResult<LoggedInUser>> PostLoggedInUser(LoggedInUser loggedInUser)
         {
             try
             {
                 var currentUser = GetCurrentUser();
-                _context.Rooms.Add(room);
+                _context.Users.Add(loggedInUser);
                 await _context.SaveChangesAsync();
                 return Ok("$Hi admin");
             }
@@ -102,16 +102,15 @@ namespace HotelApp.Controllers
             }
         }
 
-        // DELETE: api/Rooms/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteRoom(int id)
+        public async Task<IActionResult> DeleteLoggedInUser(int id)
         {
             try
             {
                 var currentUser = GetCurrentUser();
-                var room = await _context.Rooms.FirstOrDefaultAsync(x => x.Room_id == id);
-                _context.Rooms.Remove(room);
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.User_id == id);
+                _context.Users.Remove(user);
                 await _context.SaveChangesAsync();
                 return Ok();
             }
@@ -120,6 +119,7 @@ namespace HotelApp.Controllers
                 return NotFound(ex);
             }
         }
+
         private LoggedInUser GetCurrentUser()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;

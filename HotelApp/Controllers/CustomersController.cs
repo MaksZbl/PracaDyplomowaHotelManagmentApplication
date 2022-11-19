@@ -8,29 +8,27 @@ using Microsoft.EntityFrameworkCore;
 using HotelApp.EF;
 using HotelApp.Models;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
 
 namespace HotelApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RoomsController : ControllerBase
+    public class CustomersController : ControllerBase
     {
         private readonly HotelAppDbContext _context;
 
-        public RoomsController(HotelAppDbContext context)
+        public CustomersController(HotelAppDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Rooms
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
+        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
         {
             try
             {
                 var currentUser = GetCurrentUser();
-                return Ok(await _context.Rooms.ToListAsync());
+                return Ok(await _context.Customers.ToListAsync());
             }
             catch (Exception ex)
             {
@@ -38,15 +36,14 @@ namespace HotelApp.Controllers
             }
         }
 
-        // GET: api/Rooms/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Room>> GetRoom(int id)
+        public async Task<ActionResult<Customer>> GetCustomer(int id)
         {
             try
             {
                 var currentUser = GetCurrentUser();
-                var room = await _context.Rooms.FirstOrDefaultAsync(x => x.Room_id == id);
-                return Ok(room);
+                var customer = await _context.Customers.FirstOrDefaultAsync(x => x.User_id == id);
+                return Ok(customer);
             }
             catch (ArgumentNullException ex)
             {
@@ -54,28 +51,23 @@ namespace HotelApp.Controllers
             }
         }
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> PutRoom(int id, Room room)
+        public async Task<IActionResult> PutCustomer(int id, Customer customer)
         {
             try
             {
                 var currentUser = GetCurrentUser();
-                Room room1 = _context.Rooms.FirstOrDefault(x => x.Room_id == id);
-                if (room1 != null)
+                var customer1 = _context.Customers.FirstOrDefault(x => x.User_id == id);
+                if (customer1 != null)
                 {
-                    room1.Number = room.Number;
-                    room1.Rent = room.Rent;
-                    room1.Description = room.Description;
-                    room1.Type = room.Type;
-                    room1.HotelId = room.HotelId;
-                    room1.IsFree = room.IsFree;
-                    _context.Rooms.Update(room1);
+                    customer1.Adress = customer.Adress;
+                    customer1.Mobile = customer.LastName;
+                    _context.Customers.Update(customer1);
                     await _context.SaveChangesAsync();
                     return Ok();
                 }
                 else
                 {
-                    _context.Rooms.Add(room);
+                    _context.Customers.Add(customer);
                     await _context.SaveChangesAsync();
                     return Ok();
                 }
@@ -86,15 +78,14 @@ namespace HotelApp.Controllers
             }
         }
         [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<Room>> PostRoom(Room room)
+        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
         {
             try
             {
                 var currentUser = GetCurrentUser();
-                _context.Rooms.Add(room);
+                _context.Customers.Add(customer);
                 await _context.SaveChangesAsync();
-                return Ok("$Hi admin");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -102,16 +93,15 @@ namespace HotelApp.Controllers
             }
         }
 
-        // DELETE: api/Rooms/5
+        // DELETE: api/Customers/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteRoom(int id)
+        public async Task<IActionResult> DeleteCustomer(int id)
         {
             try
             {
                 var currentUser = GetCurrentUser();
-                var room = await _context.Rooms.FirstOrDefaultAsync(x => x.Room_id == id);
-                _context.Rooms.Remove(room);
+                var customer = await _context.Customers.FirstOrDefaultAsync(x => x.User_id == id);
+                _context.Users.Remove(customer);
                 await _context.SaveChangesAsync();
                 return Ok();
             }
@@ -120,6 +110,7 @@ namespace HotelApp.Controllers
                 return NotFound(ex);
             }
         }
+
         private LoggedInUser GetCurrentUser()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
