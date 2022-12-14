@@ -8,6 +8,7 @@ namespace HotelApp.Models
     public class Payment
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Payment_id { get; set; }
         [Column(TypeName = "nvarchar(100)")]
         public string CardOwnerName { get; set; }
@@ -18,8 +19,8 @@ namespace HotelApp.Models
         public DateTime PaymentDate { get; set; }
         [Column(TypeName = "nvarchar(3)")]
         public string SecurityCode { get; set; }
-        public virtual Customer Customer { get; set; }
-        [ForeignKey("Customer")]
+        public virtual LoggedInUser LoggedInUser { get; set; }
+        [ForeignKey("LoggedInUser")]
         public int? Customer_id { get; set; }
 
     }

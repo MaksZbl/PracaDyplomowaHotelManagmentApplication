@@ -37,6 +37,9 @@ namespace HotelApp.Migrations
                         .HasMaxLength(5000)
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("RoomId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -68,11 +71,8 @@ namespace HotelApp.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<double>("Rating")
-                        .HasColumnType("float");
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -92,6 +92,7 @@ namespace HotelApp.Migrations
             modelBuilder.Entity("HotelApp.Models.HotelImage", b =>
                 {
                     b.Property<string>("Image_id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
@@ -123,9 +124,10 @@ namespace HotelApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Discriminator")
+                    b.Property<string>("Adress")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("EmailAdress")
                         .IsRequired()
@@ -136,13 +138,21 @@ namespace HotelApp.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int?>("HotelId")
+                        .HasColumnType("int");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("Mobile")
                         .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Password")
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -159,9 +169,9 @@ namespace HotelApp.Migrations
 
                     b.HasKey("User_id");
 
-                    b.ToTable("Users");
+                    b.HasIndex("HotelId");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("LoggedInUser");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("HotelApp.Models.Payment", b =>
@@ -196,12 +206,40 @@ namespace HotelApp.Migrations
                     b.ToTable("Payments");
                 });
 
+            modelBuilder.Entity("HotelApp.Models.Rate", b =>
+                {
+                    b.Property<int>("RateId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("HotelId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LoggedInUserId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("value")
+                        .HasColumnType("float");
+
+                    b.HasKey("RateId");
+
+                    b.HasIndex("HotelId");
+
+                    b.HasIndex("LoggedInUserId");
+
+                    b.ToTable("Rates");
+                });
+
             modelBuilder.Entity("HotelApp.Models.Room", b =>
                 {
                     b.Property<int>("Room_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BookingId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -229,6 +267,10 @@ namespace HotelApp.Migrations
 
                     b.HasKey("Room_id");
 
+                    b.HasIndex("BookingId")
+                        .IsUnique()
+                        .HasFilter("[BookingId] IS NOT NULL");
+
                     b.HasIndex("HotelId");
 
                     b.ToTable("Rooms");
@@ -237,6 +279,7 @@ namespace HotelApp.Migrations
             modelBuilder.Entity("HotelApp.Models.RoomImage", b =>
                 {
                     b.Property<string>("Image_id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
@@ -261,31 +304,14 @@ namespace HotelApp.Migrations
                     b.ToTable("RoomImages");
                 });
 
-            modelBuilder.Entity("HotelApp.Models.Customer", b =>
-                {
-                    b.HasBaseType("HotelApp.Models.LoggedInUser");
-
-                    b.Property<string>("Adress")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("Mobile")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasDiscriminator().HasValue("Customer");
-                });
-
             modelBuilder.Entity("HotelApp.Models.Booking", b =>
                 {
-                    b.HasOne("HotelApp.Models.Customer", "Customer")
+                    b.HasOne("HotelApp.Models.LoggedInUser", "LoggedInUser")
                         .WithMany("Bookings")
                         .HasForeignKey("Customer_id")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.Navigation("Customer");
+                    b.Navigation("LoggedInUser");
                 });
 
             modelBuilder.Entity("HotelApp.Models.HotelImage", b =>
@@ -298,22 +324,55 @@ namespace HotelApp.Migrations
                     b.Navigation("Hotel");
                 });
 
+            modelBuilder.Entity("HotelApp.Models.LoggedInUser", b =>
+                {
+                    b.HasOne("HotelApp.Models.Hotel", "Hotel")
+                        .WithMany("Employees")
+                        .HasForeignKey("HotelId");
+
+                    b.Navigation("Hotel");
+                });
+
             modelBuilder.Entity("HotelApp.Models.Payment", b =>
                 {
-                    b.HasOne("HotelApp.Models.Customer", "Customer")
+                    b.HasOne("HotelApp.Models.LoggedInUser", "LoggedInUser")
                         .WithMany("Payments")
                         .HasForeignKey("Customer_id")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.Navigation("Customer");
+                    b.Navigation("LoggedInUser");
+                });
+
+            modelBuilder.Entity("HotelApp.Models.Rate", b =>
+                {
+                    b.HasOne("HotelApp.Models.Hotel", "Hotel")
+                        .WithMany("Rates")
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("HotelApp.Models.LoggedInUser", "LoggedInUser")
+                        .WithMany("Rates")
+                        .HasForeignKey("LoggedInUserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Hotel");
+
+                    b.Navigation("LoggedInUser");
                 });
 
             modelBuilder.Entity("HotelApp.Models.Room", b =>
                 {
+                    b.HasOne("HotelApp.Models.Booking", "Booking")
+                        .WithOne("Room")
+                        .HasForeignKey("HotelApp.Models.Room", "BookingId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("HotelApp.Models.Hotel", "Hotel")
                         .WithMany("Rooms")
                         .HasForeignKey("HotelId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Booking");
 
                     b.Navigation("Hotel");
                 });
@@ -328,23 +387,34 @@ namespace HotelApp.Migrations
                     b.Navigation("Room");
                 });
 
+            modelBuilder.Entity("HotelApp.Models.Booking", b =>
+                {
+                    b.Navigation("Room");
+                });
+
             modelBuilder.Entity("HotelApp.Models.Hotel", b =>
                 {
+                    b.Navigation("Employees");
+
                     b.Navigation("images");
 
+                    b.Navigation("Rates");
+
                     b.Navigation("Rooms");
+                });
+
+            modelBuilder.Entity("HotelApp.Models.LoggedInUser", b =>
+                {
+                    b.Navigation("Bookings");
+
+                    b.Navigation("Payments");
+
+                    b.Navigation("Rates");
                 });
 
             modelBuilder.Entity("HotelApp.Models.Room", b =>
                 {
                     b.Navigation("images");
-                });
-
-            modelBuilder.Entity("HotelApp.Models.Customer", b =>
-                {
-                    b.Navigation("Bookings");
-
-                    b.Navigation("Payments");
                 });
 #pragma warning restore 612, 618
         }

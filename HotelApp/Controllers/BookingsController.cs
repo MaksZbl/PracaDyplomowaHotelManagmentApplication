@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using HotelApp.EF;
 using HotelApp.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelApp.Controllers
 {
@@ -22,6 +23,7 @@ namespace HotelApp.Controllers
             _context = context;
         }
         [HttpGet]
+        [Authorize(Roles = "Admin, LoggedInUser")]
         public async Task<ActionResult<IEnumerable<Booking>>> GetBookings()
         {
             try
@@ -29,7 +31,7 @@ namespace HotelApp.Controllers
                 var currentUser = GetCurrentUser();
                 if(currentUser.RoleValue != "Admin")
                 {
-                    return Ok(await _context.Bookings.FirstOrDefaultAsync(x => x.Customer.UserName == currentUser.UserName));
+                    return Ok(_context.Bookings.Where(x => x.LoggedInUser.UserName == currentUser.UserName));
                 }
                 return Ok(await _context.Bookings.ToListAsync());
             }
@@ -40,6 +42,7 @@ namespace HotelApp.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin, LoggedInUser")]
         public async Task<ActionResult<Booking>> GetBooking(int id)
         {
             try
@@ -55,6 +58,7 @@ namespace HotelApp.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutBooking(int id, Booking booking)
         {
             try
@@ -85,13 +89,29 @@ namespace HotelApp.Controllers
             }
         }
         [HttpPost]
+        [Authorize(Roles = "Admin, LoggedInUser")]
         public async Task<ActionResult<Booking>> PostBooking(Booking booking)
         {
             try
             {
+                var checkRoom = _context.Rooms.FirstOrDefault(x => x.Room_id == booking.RoomId);
                 var currentUser = GetCurrentUser();
-                _context.Bookings.Add(booking);
-                await _context.SaveChangesAsync();
+                if(checkRoom.IsFree == true)
+                {
+                    checkRoom.IsFree = false;
+                    if(currentUser.RoleValue == "LoggedInUser")
+                    {
+                        var checkUser = _context.Users.FirstOrDefault(x => x.UserName == currentUser.UserName);
+                        booking.Customer_id = checkUser.User_id;
+                    }
+                    _context.Bookings.Add(booking);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    return NotFound();
+                }
+                
                 return Ok();
             }
             catch (Exception ex)
@@ -102,12 +122,15 @@ namespace HotelApp.Controllers
 
         // DELETE: api/Bookings/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin, LoggedInUser")]
         public async Task<IActionResult> DeleteBooking(int id)
         {
             try
             {
                 var currentUser = GetCurrentUser();
                 var book = await _context.Bookings.FirstOrDefaultAsync(x => x.Booking_id == id);
+                var checkRoom = _context.Rooms.FirstOrDefault(x => x.Room_id == book.RoomId);
+                checkRoom.IsFree = true;
                 _context.Bookings.Remove(book);
                 await _context.SaveChangesAsync();
                 return Ok();

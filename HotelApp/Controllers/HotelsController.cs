@@ -36,13 +36,13 @@ namespace HotelApp.Controllers
             }
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Hotel>> GetHotel(int id)
+        [HttpGet("{title}")]
+        public async Task<ActionResult<Hotel>> GetHotel(string title)
         {
             try
             {
                 var currentUser = GetCurrentUser();
-                var hotel = await _context.Hotels.FirstOrDefaultAsync(x => x.Hotel_id == id);
+                var hotel = _context.Hotels.Where(x => x.Title.Contains(title));
                 return Ok(hotel);
             }
             catch (ArgumentNullException ex)
@@ -60,10 +60,42 @@ namespace HotelApp.Controllers
                 Hotel hotel1 = _context.Hotels.FirstOrDefault(x => x.Hotel_id == id);
                 if (hotel1 != null)
                 {
-                    hotel1.Description = hotel.Description;
-                    hotel1.Type = hotel.Type;
-                    hotel1.Address = hotel.Address;
-                    hotel1.Rating = hotel.Rating;
+                    if(hotel.Description == null)
+                    {
+                       hotel1.Description = hotel1.Description;
+                    }
+                    else
+                    {
+                        hotel1.Description = hotel.Description;
+                    }
+
+                    if (hotel.Type == null)
+                    {
+                        hotel1.Type = hotel1.Type;
+                    }
+                    else
+                    {
+                        hotel1.Type = hotel.Type;
+                    }
+
+                    if (hotel.Address == null)
+                    {
+                        hotel1.Address = hotel1.Address;
+                    }
+                    else
+                    {
+                        hotel1.Address = hotel.Address;
+                    }
+
+                    if (hotel.Title == null)
+                    {
+                        hotel1.Title = hotel1.Title;
+                    }
+                    else
+                    {
+                        hotel1.Title = hotel.Title;
+                    }
+
                     _context.Hotels.Update(hotel1);
                     await _context.SaveChangesAsync();
                     return Ok();

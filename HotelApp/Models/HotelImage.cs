@@ -8,7 +8,7 @@ namespace HotelApp.Models
     public class HotelImage
     {
         [Key]
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Image_id { get; set; }
         [Required]
         [Column(TypeName = "nvarchar(50)")]

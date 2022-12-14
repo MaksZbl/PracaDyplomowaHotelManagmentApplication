@@ -9,6 +9,8 @@ using HotelApp.EF;
 using HotelApp.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace HotelApp.Controllers
 {
@@ -38,14 +40,14 @@ namespace HotelApp.Controllers
             }
         }
 
-        [HttpGet("{id}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<LoggedInUser>> GetLoggedInUser(int id)
+        [HttpGet("{userName}")]
+        [Authorize(Roles = "Admin,Employee")]
+        public async Task<ActionResult<LoggedInUser>> GetLoggedInUser(string userName)
         {
             try
             {
                 var currentUser = GetCurrentUser();
-                var user = await _context.Users.FirstOrDefaultAsync(x => x.User_id == id);
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == userName);
                 return Ok(user);
             }
             catch (ArgumentNullException ex)
@@ -68,7 +70,6 @@ namespace HotelApp.Controllers
                     user1.RegistrationDate = loggedInUser.RegistrationDate;
                     user1.UserName = loggedInUser.UserName;
                     user1.RoleValue = loggedInUser.RoleValue;
-                    user1.Password = loggedInUser.Password;
                     _context.Users.Update(user1);
                     await _context.SaveChangesAsync();
                     return Ok();
@@ -109,6 +110,7 @@ namespace HotelApp.Controllers
             try
             {
                 var currentUser = GetCurrentUser();
+
                 var user = await _context.Users.FirstOrDefaultAsync(x => x.User_id == id);
                 _context.Users.Remove(user);
                 await _context.SaveChangesAsync();

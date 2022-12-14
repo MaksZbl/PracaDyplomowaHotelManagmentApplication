@@ -54,7 +54,7 @@ namespace HotelApp.Controllers
             }
         }
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> PutRoom(int id, Room room)
         {
             try
@@ -64,10 +64,8 @@ namespace HotelApp.Controllers
                 if (room1 != null)
                 {
                     room1.Number = room.Number;
-                    room1.Rent = room.Rent;
                     room1.Description = room.Description;
                     room1.Type = room.Type;
-                    room1.HotelId = room.HotelId;
                     room1.IsFree = room.IsFree;
                     _context.Rooms.Update(room1);
                     await _context.SaveChangesAsync();

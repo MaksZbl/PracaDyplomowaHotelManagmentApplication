@@ -12,8 +12,8 @@ namespace HotelApp.EF
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<HotelImage> HotelImages { get; set; }
         public virtual DbSet<RoomImage> RoomImages { get; set; }
-        public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Booking> Bookings { get; set; }
+        public virtual DbSet<Rate> Rates { get; set; }
 
         public HotelAppDbContext(DbContextOptions<HotelAppDbContext> options)
         : base(options) { }
@@ -45,14 +45,34 @@ namespace HotelApp.EF
                 .WithOne(x => x.Room)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Customer>()
+            modelBuilder.Entity<LoggedInUser>()
                 .HasMany(c => c.Bookings)
-                .WithOne(x => x.Customer)
+                .WithOne(x => x.LoggedInUser)
                 .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Customer>()
+
+            modelBuilder.Entity<LoggedInUser>()
                 .HasMany(c => c.Payments)
-                .WithOne(x => x.Customer)
+                .WithOne(x => x.LoggedInUser)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Room>()
+                .HasOne(c => c.Booking)
+                .WithOne(x => x.Room)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<LoggedInUser>()
+                .HasMany(c => c.Rates)
+                .WithOne(x => x.LoggedInUser)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Hotel>()
+                .HasMany(c => c.Rates)
+                .WithOne(x => x.Hotel)
+    .           OnDelete(DeleteBehavior.Cascade);
+
+
+            modelBuilder.Entity<Hotel>()
+                .HasMany(c => c.Employees)
+                .WithOne(x => x.Hotel);
         }
     }
 }

@@ -6,6 +6,7 @@ namespace HotelApp.Models
     public class RoomImage
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Image_id { get; set; }
         [Required]
         [Column(TypeName = "nvarchar(50)")]

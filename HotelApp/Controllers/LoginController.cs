@@ -36,7 +36,7 @@ namespace HotelApp.Controllers
             if (user != null)
             {
                 var token = GenerateToken(user);
-                return Ok(token);
+                return Ok(new { Token = token});
             }
             return NotFound("User not found");
         }
