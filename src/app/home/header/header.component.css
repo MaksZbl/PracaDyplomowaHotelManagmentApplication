@@ -1,0 +1,270 @@
+/*******************************header************************/
+
+.header {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    background: rgb(0, 0, 0, 0.5);
+    opacity: 1;
+    padding-bottom: 10px;
+    position: fixed;
+    z-index: 100;
+}
+
+.header_logo_link {
+    font-family: KaushanScript;
+    text-decoration: none;
+    color: rgb(250, 192, 3);
+}
+
+.header_logo_link_img {
+
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    display: block;
+}
+
+.header_inner {
+    max-width: 100%;
+    max-height: 100%;
+    align-items: center;
+    text-align: center;
+}
+
+.nav {
+    padding-top: 20px;
+    font-size: 20px;
+    font-weight: 400;
+    display: inline-block;
+    margin: 0 auto;
+    display: block;
+}
+
+.nav_link {
+    color: #fff;
+    margin: 0 20px;
+    text-decoration: none;
+    position: relative;
+    text-transform: uppercase;
+    opacity: 1;
+}
+
+.nav_link:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 3px;
+    opacity: 0;
+    background-color: rgb(170, 133, 12);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    margin-top: 5px;
+    transition: opacity 0.3s linear;
+}
+
+.nav_link:hover:after {
+    opacity: 1;
+}
+
+.nav_link:hover {
+    color: rgb(250, 192, 3);
+    transition: color 0.3s linear;
+}
+
+.btn-user {
+    position: absolute;
+    top: 50px;
+    right: 200px;
+    z-index: 1;
+    padding: 0;
+    background: transparent;
+    border-width: 2px;
+    padding: 3px;
+}
+
+.btn-cabinet {
+    font-family: Montsserat;
+    position: absolute;
+    top: 45px;
+    right: 50px;
+    z-index: 1;
+    padding: 0;
+    background: #000;
+    padding: 10px;
+    border-radius: 20px;
+    border-color: rgb(235, 182, 8);
+    border-width: 2px;
+    color: #fff;
+}
+
+.btn-cabinet:hover {
+    transition: background 0.3s linear;
+    background: rgb(97, 97, 97);
+}
+
+.btn-user:hover {
+    background: rgb(250, 192, 3);
+}
+
+
+.btn-follow {
+    rotate: 90deg;
+    top: 60%;
+    left: -50px;
+    z-index: 100;
+    font-size: 20px;
+    background-color: aliceblue;
+    border-width: 2px;
+    position: fixed;
+    border-color: #000;
+}
+
+.btn-follow:hover {
+    transition: background 0.3s linear;
+    background-color: #000;
+    color: #fff;
+}
+
+.logIn_menu {
+    background-color: #fff;
+    position: absolute;
+    font-family: KaushanScript;
+    top: 95px;
+    right: 165px;
+    height: auto;
+    transition: visibility 0.3s linear;
+}
+
+.logIn_menu a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #000;
+    font-size: 20px;
+}
+
+.logIn_menu a:hover {
+    background-color: rgb(250, 192, 3);
+    transition: background 0.3s linear;
+}
+
+.header_overlay {
+    text-align: center;
+    align-items: center;
+    background-color: #000;
+    color: #fff;
+    z-index: 1000;
+    height: auto;
+    width: 300px;
+    padding: 20px;
+    border-radius: 30px;
+    animation-name: LogInAnimation;
+    animation-duration: 1s;
+    border-width: 3px;
+    border-style: solid;
+    border-image:
+        linear-gradient(to bottom,
+            rgba(0, 0, 0, 0),
+            #eec738,
+            rgba(0, 0, 0, 0)) 1 100%;
+}
+
+label {
+    margin-bottom: 10px;
+}
+
+.btn-log {
+    margin-top: 20px;
+    width: 200px;
+    background: linear-gradient(to bottom, #f38181, #eec738);
+    border: 0px;
+}
+
+.btn-log:hover {
+    background: linear-gradient(to bottom, #e73030, #d1a505);
+}
+
+.form-group {
+    padding: 20px;
+}
+
+.forgot_password {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.forgot_password a {
+    color: #fff;
+    text-decoration: none;
+    font-family: KaushanScript;
+}
+
+.forgot_password a:hover {
+    text-decoration: underline;
+}
+
+
+
+.list-group-item {
+    background: transparent;
+    color: #fff;
+}
+
+.header_overlay a {
+    text-align: center;
+    align-items: center;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header_overlay a:hover {
+    border: 1px solid #eec738;
+}
+
+
+@media (max-width: 990px) {
+    .btn-user {
+        right: 100px;
+    }
+}
+
+@media (max-width: 770px) {
+    .nav {
+        display: none;
+    }
+
+    .btn-user {
+        max-width: 40px;
+        max-height: 40px;
+    }
+
+    .header_icon {
+        max-width: 25px;
+        max-height: 25px;
+    }
+
+    .header_logo_link_img {
+        max-width: 300px;
+        height: auto;
+    }
+
+}
+
+@keyframes LogInAnimation {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,271 @@
+.intro_img {
+    display: block;
+    height: auto;
+    max-width: 1903px;
+    width: 100%;
+}
+
+.hotelOverviewIntro {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    text-align: center;
+    flex-direction: column;
+}
+
+.hotel_Image img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.hotel_Image {
+    position: relative;
+}
+
+.intro_suptitle {
+    color: rgb(218, 169, 9);
+    font-size: 27px;
+    font-family: KaushanScript;
+    width: 100%;
+}
+
+.intro_suptitle:after {
+    content: "";
+    display: block;
+    width: 150px;
+    height: 2px;
+    background: linear-gradient(to right, #000, rgb(252, 193, 1), #000);
+    position: absolute;
+    top: 110px;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
+.hotelOverviewIntroWidget {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    font-family: Montserrat;
+    border: 3px solid rgb(218, 169, 9);
+    ;
+    border-radius: 30px;
+    padding: 20px;
+    position: absolute;
+    max-width: 500px;
+    width: 100%;
+    background-color: #000;
+    color: #FFF;
+    bottom: 200px;
+    right: 50px;
+    z-index: 1;
+}
+
+.intro_title {
+    font-size: 30px;
+    margin-top: 30px;
+}
+
+.btn-widget {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    max-width: 190px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.main_link a {
+    text-decoration: none;
+    color: #FFF;
+}
+
+.main_link {
+    margin-bottom: 20px;
+
+}
+
+.main_link a:hover {
+    text-decoration: underline;
+}
+
+.hotelOverview_services {
+    position: relative;
+    margin-top: 200px;
+}
+
+.hotelOverview_services h1 {
+    font-size: 40px;
+    font-family: KaushanScript;
+}
+
+.hotelOverview_services_inner {
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.hotelServices_content {
+    width: 20%;
+    font-family: Montserrat;
+    font-weight: 400;
+    padding-top: 10px;
+    font-size: 18px;
+    display: flex;
+}
+
+.hotelServices_content p {
+    padding-left: 10px;
+}
+
+.btn_seeAll {
+    background: transparent;
+    color: #000;
+    border: 1px solid #000;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.btn_seeAll:hover {
+    background-color: #000;
+    color: #FFF;
+    transition: background .3s linear;
+}
+
+.hotelOverview_services {
+    text-align: center;
+    align-items: center;
+}
+
+.hotelOverview_services h1 {
+    text-align: left;
+}
+
+.hotelOverview_overview {
+    margin-top: 100px;
+}
+
+.overviewTextTitle {
+    font-family: KaushanScript;
+    font-size: 48px;
+}
+
+.hotelOverview_overview {
+    display: flex;
+}
+
+.overviewTextTitle {
+    margin-bottom: 30px;
+}
+
+.overviewTextContent {
+    padding: 10px;
+    font-size: 20px;
+    font-family: Montserrat;
+}
+
+.overviewTextContent:hover {
+    border: 1px solid #000;
+}
+
+.hotelOverview_overviewText {
+    width: 50%;
+}
+
+.hotelOverview_overviewCard {
+    color: #FFF;
+    width: 50%;
+    margin-left: 10px;
+}
+
+.hotelOverview_overviewCard img {
+    width: 100%;
+}
+
+.overviewCardContent {
+    background-color: #333;
+    padding: 20px;
+    font-family: KaushanScript;
+}
+
+.overviewCardContent:after {
+    content: "";
+    display: block;
+    margin-top: 20px;
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(to right, #333, rgb(252, 193, 1), #000);
+}
+
+.overviewCardContact {
+    background-color: #333;
+    padding: 20px;
+    font-family: KaushanScript;
+}
+
+.overviewCardContact:after {
+    content: "";
+    display: block;
+    margin-top: 20px;
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(to right, #333, rgb(252, 193, 1), #000);
+}
+
+.overviewCardContactEmail {
+    background-color: #333;
+    padding: 20px;
+    font-family: KaushanScript;
+    color: rgb(199, 190, 190);
+}
+
+.overviewCardContactEmail a {
+    text-decoration: none;
+    color: #fff;
+    margin-left: 10px;
+}
+
+.overviewCardContactEmail a:hover {
+    color: rgb(199, 190, 190);
+    transition: color .2s linear;
+}
+
+.overviewCardContactCheck {
+    height: 150px;
+    border: 1px solid rgb(199, 190, 190);
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.overviewCardContactCheck {
+    color: rgb(146, 144, 144);
+    text-transform: uppercase;
+}
+
+.overviewCardContactCheck p {
+    display: block;
+}
+
+.overviewCardContactCheckIn {
+    width: 50%;
+}
+
+.overviewCardContactCheckInText {
+    font-size: 20px;
+    font-family: Montserrat;
+}
+
+.overviewCardContactCheckInNumber {
+    color: rgb(207, 159, 2);
+    font-family: KaushanScript;
+    font-size: 30px;
+}

@@ -1,0 +1,35 @@
+<div class="hotelContent">
+    <div class="container">
+        <div class="hotelContent_inner">
+            <div class="main_link">
+                <a routerLink="">Strona główna</a>
+                <span> > Hotele</span>
+            </div>
+            <div class="hotele_title text-center">
+                <h1>Hotele</h1>
+            </div>
+            <div class="hotelsCards">
+                <ng-template ngFor let-hotel [ngForOf]="HotelList">
+                    <a routerLink="/hotels/{{HotelListRoutes[HotelList.indexOf(hotel)]}}">
+                        <div class="hotelCard">
+                            <ng-template ngFor let-image [ngForOf]="hotel.images">
+                                <div class="hotel_Image">
+                                    <img [src]="image.imageBase64" alt="hotel_Image" width="400px" height="250px">
+                                </div>
+                            </ng-template>
+                            <div class=" hotel_content">
+                                <h3 class="hotel_adress">{{hotel.address}}</h3>
+                                <h1 class="hotel_title">{{hotel.title}}</h1>
+                                <h3 class="hotel_description">{{hotel.title}}</h3>
+                                <div class="rating">
+                                    <img src="\assets\Icons\star.png" alt="Star">
+                                    <h3 class="hotel_rating">{{hotel.rating}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

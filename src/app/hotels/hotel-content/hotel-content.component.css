@@ -1,0 +1,123 @@
+.hotelContent {
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+}
+
+.hotelContent_inner {
+    position: relative;
+    width: 100%;
+    top: 250px;
+}
+
+
+a {
+    text-decoration: underline;
+    color: #000;
+    font-size: 16px;
+    font-family: Montserrat;
+    font-weight: 900;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.main_link {
+    padding-top: 30px;
+    margin-bottom: 100px;
+}
+
+h1 {
+    font-size: 80px;
+}
+
+.hotele_title {
+    font-family: KaushanScript;
+}
+
+.hotele_title h1 {
+    margin-bottom: 30px;
+}
+
+
+.hotelsTable_inner thead {
+    font-size: 20px;
+}
+
+.hotelsCards {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.hotelCard {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 3px 5px rgb(230, 228, 228);
+    margin-bottom: 30px;
+}
+
+.hotel_adress {
+    font-size: 16px;
+    background: aqua;
+    max-width: 340px;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 50px;
+    padding: 5px;
+    margin-left: 10px;
+    font-family: Montserrat;
+}
+
+.hotel_Image img {
+    display: block;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.hotel_title {
+    font-size: 20px;
+    font-family: Montserrat;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.hotel_description {
+    font-size: 16px;
+    margin-top: 20px;
+    font-family: Montserrat;
+    font-weight: 700;
+    margin-left: 10px;
+}
+
+.hotel_rating {
+    font-size: 16px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.rating {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 50px;
+    text-align: center;
+    margin-left: 30px;
+    padding-bottom: 20px;
+}
+
+.rating img {
+    display: block;
+}
+
+.hotelsCards a {
+    text-decoration: none;
+}
+
+.hotelsCards a:hover .hotelCard {
+    box-shadow: 10px 10px rgb(180, 176, 176);
+    transition: box-shadow 0.3s linear;
+}

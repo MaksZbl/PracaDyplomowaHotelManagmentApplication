@@ -1,0 +1,28 @@
+.footer {
+    background: rgb(198, 207, 214);
+    margin-top: 50px;
+}
+
+.footer_inner {
+    text-align: center;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+h1 {
+    font-family: KaushanScript;
+    color: #000;
+    margin: 0;
+    padding-bottom: 5px;
+}
+
+@media (max-width: 575px) {
+    .header_logo_link_img {
+        max-width: 300px;
+        height: auto;
+    }
+}

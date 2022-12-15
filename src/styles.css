@@ -1,1 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~@angular/cdk/overlay-prebuilt.css';
+
+@import 'ngx-toastr/toastr';
+
+@font-face {
+    font-family: Montserrat;
+    src: url(/assets/Fonts/Montserrat/Montserrat-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: KaushanScript;
+    src: url(/assets/Fonts/KaushanScript/KaushanScript-Regular.ttf) format('truetype');
+}

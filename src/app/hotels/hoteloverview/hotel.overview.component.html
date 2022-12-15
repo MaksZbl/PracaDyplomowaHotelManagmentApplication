@@ -1,0 +1,157 @@
+<div class="hotelOverview">
+    <div class="hotelOverview_inner">
+        <app-header></app-header>
+        <ng-template ngFor let-i [ngForOf]="hotel">
+            <ng-template ngFor let-j [ngForOf]="images">
+                <div class="hotelOverviewIntro">
+                    <div class="hotel_Image col-12">
+                        <img [src]="j.imageBase64" alt="hotel_Image">
+                    </div>
+                    <div class="hotelOverviewIntroWidget">
+                        <div class="main_link">
+                            <a routerLink="">Strona główna</a>
+                            <span> > </span>
+                            <a routerLink="">Hotele</a>
+                        </div>
+                        <h1 class="intro_suptitle">
+                            Zapraszamy do
+                        </h1>
+                        <h1 class="intro_title">
+                            {{i.title}}
+                        </h1>
+                        <div class="intro_type" style="width: 100%; font-size: 20px; color: rgb(218, 169, 9);"
+                            *ngIf="type == 4">
+                            <fa-icon style="padding: 2px;" [icon]="faStarIcon"></fa-icon>
+                            <fa-icon style="padding: 2px;" [icon]="faStarIcon"></fa-icon>
+                            <fa-icon style="padding: 2px;" [icon]="faStarIcon"></fa-icon>
+                            <fa-icon style="padding: 2px;" [icon]="faStarIcon"></fa-icon>
+                        </div>
+                        <div class="intro_type" style="width: 100%; font-size: 20px; color: rgb(218, 169, 9);"
+                            *ngIf="type == 5">
+                            <fa-icon style="padding: 2px;" [icon]="faStarIcon"></fa-icon>
+                            <fa-icon style="padding: 2px;" [icon]="faStarIcon"></fa-icon>
+                            <fa-icon style="padding: 2px;" [icon]="faStarIcon"></fa-icon>
+                            <fa-icon style="padding: 2px;" [icon]="faStarIcon"></fa-icon>
+                            <fa-icon style="padding: 2px;" [icon]="faStarIcon"></fa-icon>
+                        </div>
+                        <button routerLink="/hotels" type="button" class="btn btn-light btn-widget">
+                            <img src="/assets/Logo/Intro/sunbathing.png" alt="sunbathing">
+                            Rezerwuj teraz
+                        </button>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="hotelOverview_services">
+                        <h1 style="color: #000;">Nasze usługi</h1>
+                        <div class="hotelOverview_services_inner">
+                            <div class="hotelServices_content">
+                                <fa-icon [icon]="faSnowflakeIcon"></fa-icon>
+                                <p class="hotelServices_content_tekst">Klimatyzacja</p>
+                            </div>
+                            <div class="hotelServices_content">
+                                <fa-icon [icon]="faWineGlassIcon"></fa-icon>
+                                <p class="hotelServices_content_tekst">Bar</p>
+                            </div>
+                            <div class="hotelServices_content">
+                                <fa-icon [icon]="faParkingIcon"></fa-icon>
+                                <p class="hotelServices_content_tekst">Parking</p>
+                            </div>
+                            <div class="hotelServices_content">
+                                <fa-icon [icon]="faUtensilsIcon"></fa-icon>
+                                <p class="hotelServices_content_tekst">Restauracja</p>
+                            </div>
+                            <div class="hotelServices_content">
+                                <fa-icon [icon]="faDumbbellIcon"></fa-icon>
+                                <p class="hotelServices_content_tekst">Fitness</p>
+                            </div>
+                            <div class="hotelServices_content">
+                                <fa-icon [icon]="faSwimmingPoolIcon"></fa-icon>
+                                <p class="hotelServices_content_tekst">Basen</p>
+                            </div>
+                            <div class="hotelServices_content">
+                                <fa-icon [icon]="faChildIcon"></fa-icon>
+                                <p class="hotelServices_content_tekst">Udogodnienia dla dzieci</p>
+                            </div>
+                            <div class="hotelServices_content">
+                                <fa-icon [icon]="faUtensilsIcon"></fa-icon>
+                                <p class="hotelServices_content_tekst">Całodobowe posiłki</p>
+                            </div>
+                            <div class="hotelServices_content">
+                                <fa-icon [icon]="faWineGlassIcon"></fa-icon>
+                                <p class="hotelServices_content_tekst">Minibar</p>
+                            </div>
+                            <div class="hotelServices_content">
+                                <fa-icon [icon]="faWifiIcon"></fa-icon>
+                                <p class="hotelServices_content_tekst">Dostęp do Internetu 24/7</p>
+                            </div>
+                            <div class="hotelServices_content" *ngIf="viewAll">
+                                <fa-icon [icon]="faFlagIcon"></fa-icon>
+                                <p class="hotelServices_content_tekst">Sport lądowy</p>
+                            </div>
+                            <div class="hotelServices_content" *ngIf="viewAll && (spaServices || luxuryServices)">
+                                <fa-icon [icon]="faHotTubIcon"></fa-icon>
+                                <p class="hotelServices_content_tekst">Sauna</p>
+                            </div>
+                            <div class="hotelServices_content" *ngIf="viewAll && (spaServices || luxuryServices)">
+                                <fa-icon [icon]="faTableTennisIcon"></fa-icon>
+                                <p class="hotelServices_content_tekst">Tennis</p>
+                            </div>
+                            <div class="hotelServices_content" *ngIf="viewAll && (spaServices || luxuryServices) ">
+                                <fa-icon [icon]="faSpaIcon"></fa-icon>
+                                <p class="hotelServices_content_tekst">Spa</p>
+                            </div>
+                            <div class="hotelServices_content" *ngIf="viewAll && (spaServices || luxuryServices) ">
+                                <fa-icon [icon]="faCameraIcon"></fa-icon>
+                                <p class="hotelServices_content_tekst">Sala konferencyjna</p>
+                            </div>
+                        </div>
+                        <button type="button" (click)="SeeAll()" class="btn_seeAll btn btn-primary">Zobacz wszystkie
+                            usługi</button>
+                    </div>
+
+                    <div class="hotelOverview_overview">
+                        <div class="hotelOverview_overviewText">
+                            <h1 class="overviewTextTitle">
+                                Przegląd
+                            </h1>
+                            <div class="overviewTextContent">
+                                {{i.description}}
+                            </div>
+                        </div>
+                        <div class="hotelOverview_overviewCard">
+                            <img [src]="j.imageBase64" alt="hotel_Image">
+                            <div class="overviewCardContent">
+                                {{i.address}}
+                            </div>
+                            <div class="overviewCardContact">
+                                <p>Tel: +48 124466780</p>
+                            </div>
+                            <div class="overviewCardContactEmail">
+                                <fa-icon [icon]="faEnvelopeIcon"></fa-icon>
+                                <a href="">Skontaktuj się poprzez email</a>
+                            </div>
+                            <div class="overviewCardContactCheck">
+                                <div class="overviewCardContactCheckIn">
+                                    <p class="overviewCardContactCheckInText">
+                                        Zameldowanie
+                                    </p>
+                                    <p class="overviewCardContactCheckInNumber">
+                                        14 h
+                                    </p>
+                                </div>
+                                <div class="overviewCardContactCheckIn">
+                                    <p class="overviewCardContactCheckInText">
+                                        Wymeldowanie
+                                    </p>
+                                    <p class="overviewCardContactCheckInNumber">
+                                        12 h
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </ng-template>
+    </div>
+</div>

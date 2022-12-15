@@ -14,13 +14,15 @@
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2020",
     "module": "es2020",
     "lib": [
       "es2020",
-      "dom"
+      "dom",
+      "ES2021.String"
     ]
   },
   "angularCompilerOptions": {

@@ -1,0 +1,94 @@
+<header class="header">
+    <div class="container">
+        <div class="header_inner">
+            <div class="header_logo_link" href="/">
+                <img class="header_logo_link_img col-md-4" src="/assets/Logo/MemoriesPalaceLogo.png" alt="HotelLogo"
+                    width="" height="">
+                <h1>Memories Palace Hotels</h1>
+            </div>
+            <button ejs-button class="btn btn-light btn-user" (click)="DisplayOverlay()" type="button" cdkOverlayOrigin
+                #trigger='cdkOverlayOrigin' [disabled]="AuthorizeUser">
+                <img class="header_icon" src="/assets/Icons/user-32.png" alt="User-avatar">
+            </button>
+
+            <button ejs-button class="btn btn-light btn-cabinet" (click)="DisplayCabinetOverlay()" type="button"
+                cdkOverlayOrigin #trigger='cdkOverlayOrigin' [disabled]="!AuthorizeUser">
+                <img class="header_icon" src="/assets/Icons/guest-16.png" alt="User-avatar">
+                Mój profil
+            </button>
+
+
+            <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger"
+                [cdkConnectedOverlayOpen]="isDisplayCabinet" (overlayOutsideClick)="isDisplayCabinet = false"
+                [cdkConnectedOverlayOffsetY]="-50" [cdkConnectedOverlayOffsetX]="150">
+                <div class="header_overlay">
+                    <h3>Mój profil</h3>
+                    <ul class="list-group">
+                        <h5 style="color: yellow; font-size: 16px; font-weight: bold;">Witam {{AuthorizeUserFirstname}}
+                            {{AuthorizeUserLastname}}</h5>
+                        <a *ngIf="AuthorizeUserRole === 'Employee' || 'Admin'" routerLink="/employeepanel">
+                            <li class="list-group-item">Employee panel</li>
+                            <fa-icon [icon]="faToolboxIcon"
+                                style="color:rgb(25, 0, 255); display: block; padding: 5px; ">
+                            </fa-icon>
+                        </a>
+                        <a href="/">
+                            <li class="list-group-item">Moje rezerwacje</li>
+                            <fa-icon [icon]="faBookIcon" style="color:red; display: block; padding: 5px; "></fa-icon>
+                        </a>
+                        <a href="/">
+                            <li class="list-group-item">Moje płatnośći</li>
+                            <fa-icon [icon]="faMoneyIcon" style="color:green; display: block; padding: 5px; "></fa-icon>
+                        </a>
+                        <a href="/">
+                            <li class="list-group-item">Oferty</li>
+                            <fa-icon [icon]="faTagIcon" style="color:yellow; display: block; padding: 5px; "></fa-icon>
+                        </a>
+                        <a (click)="LogOut()" href="/">
+                            <li class="list-group-item">Log out</li>
+                            <fa-icon [icon]="faArrowCircleRightIcon"
+                                style="color:rgb(255, 255, 255); display: block; padding: 5px; "></fa-icon>
+                        </a>
+                    </ul>
+                </div>
+            </ng-template>
+
+            <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isDisplay"
+                (overlayOutsideClick)="isDisplay = false" [cdkConnectedOverlayOffsetY]="-50"
+                [cdkConnectedOverlayOffsetX]="120">
+                <div class="header_overlay">
+                    <h1>Login</h1>
+                    <form class="form-signin" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+                        <div *ngIf="invalidLogin" class="alert alert-danger">Invalid username or password</div>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" NgModel class="form-control" id="username" name="username"
+                                [(ngModel)]="username" placeholder="Enter username" required autofocus>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" [(ngModel)]="password" NgModel class="form-control"
+                                id="exampleInputPassword1" placeholder="Password" name="password" required>
+                        </div>
+                        <div class="forgot_password">
+                            <a href="/">Forgot password?</a>
+                        </div>
+                        <button type="submit" class="btn btn-log btn-primary">Login</button>
+                    </form>
+                </div>
+            </ng-template>
+
+
+            <nav class="nav">
+                <a class="nav_link" routerLink="/hotels">HOTELE</a>
+                <a class="nav_link" href="/">DZIAŁANIA W MEMORIES PALACE</a>
+                <a class="nav_link" href="/">Nasze oferty</a>
+                <a class="nav_link" href="/">COŚ O NAS</a>
+            </nav>
+
+            <button type="button" class="btn btn-light btn-follow">
+                Obserwuj nas
+            </button>
+        </div>
+    </div>
+</header>
