@@ -16,7 +16,7 @@ namespace HotelApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LoggedInUsersController : ControllerBase
+    public class LoggedInUsersController : BaseController
     {
         private readonly HotelAppDbContext _context;
 
@@ -119,29 +119,6 @@ namespace HotelApp.Controllers
             catch (Exception ex)
             {
                 return NotFound(ex);
-            }
-        }
-
-        private LoggedInUser GetCurrentUser()
-        {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-
-            if (identity != null)
-            {
-                var userClaims = identity.Claims;
-
-                return new LoggedInUser
-                {
-                    FirstName = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.GivenName)?.Value,
-                    LastName = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Surname)?.Value,
-                    EmailAdress = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value,
-                    UserName = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value,
-                    RoleValue = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value,
-                };
-            }
-            else
-            {
-                return null;
             }
         }
     }

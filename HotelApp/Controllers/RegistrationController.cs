@@ -13,7 +13,7 @@ namespace HotelApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RegistrationController : ControllerBase
+    public class RegistrationController : BaseController
     {
         private readonly HotelAppDbContext _context;
 

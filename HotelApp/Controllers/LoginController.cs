@@ -16,7 +16,7 @@ namespace HotelApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LoginController : ControllerBase
+    public class LoginController : BaseController
     {
         private readonly IConfiguration _config;
         private readonly HotelAppDbContext _context;
