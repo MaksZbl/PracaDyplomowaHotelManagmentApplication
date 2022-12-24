@@ -64,15 +64,15 @@ namespace HotelApp.Controllers
             try
             {
                 var currentUser = GetCurrentUser();
-                var book1 = _context.Bookings.FirstOrDefault(x => x.Booking_id == id);
-                if (book1 != null)
+                var bookFromDb = _context.Bookings.FirstOrDefault(x => x.Booking_id == id);
+                if (bookFromDb != null)
                 {
-                    book1.Type = booking.Type;
-                    book1.Title = booking.Title;
-                    book1.Description = booking.Description;
-                    book1.Date = booking.Date;
-                    book1.Customer_id = booking.Customer_id;
-                    _context.Bookings.Update(book1);
+                    bookFromDb.Type = booking.Type;
+                    bookFromDb.Title = booking.Title;
+                    bookFromDb.Description = booking.Description;
+                    bookFromDb.Date = booking.Date;
+                    bookFromDb.Customer_id = booking.Customer_id;
+                    _context.Bookings.Update(bookFromDb);
                     await _context.SaveChangesAsync();
                     return Ok();
                 }

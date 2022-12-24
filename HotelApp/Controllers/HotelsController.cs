@@ -57,46 +57,14 @@ namespace HotelApp.Controllers
             try
             {
                 var currentUser = GetCurrentUser();
-                Hotel hotel1 = _context.Hotels.FirstOrDefault(x => x.Hotel_id == id);
-                if (hotel1 != null)
+                var hotelFromDb = _context.Hotels.FirstOrDefault(x => x.Hotel_id == id);
+                if (hotelFromDb != null)
                 {
-                    if(hotel.Description == null)
-                    {
-                       hotel1.Description = hotel1.Description;
-                    }
-                    else
-                    {
-                        hotel1.Description = hotel.Description;
-                    }
-
-                    if (hotel.Type == null)
-                    {
-                        hotel1.Type = hotel1.Type;
-                    }
-                    else
-                    {
-                        hotel1.Type = hotel.Type;
-                    }
-
-                    if (hotel.Address == null)
-                    {
-                        hotel1.Address = hotel1.Address;
-                    }
-                    else
-                    {
-                        hotel1.Address = hotel.Address;
-                    }
-
-                    if (hotel.Title == null)
-                    {
-                        hotel1.Title = hotel1.Title;
-                    }
-                    else
-                    {
-                        hotel1.Title = hotel.Title;
-                    }
-
-                    _context.Hotels.Update(hotel1);
+                    hotelFromDb.Type = hotel.Type;
+                    hotelFromDb.Title = hotel.Title;
+                    hotelFromDb.Description = hotel.Description;
+                    hotelFromDb.Address = hotel.Address;
+                    _context.Hotels.Update(hotelFromDb);
                     await _context.SaveChangesAsync();
                     return Ok();
                 }

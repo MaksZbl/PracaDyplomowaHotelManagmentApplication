@@ -62,15 +62,15 @@ namespace HotelApp.Controllers
             try
             {
                 var currentUser = GetCurrentUser();
-                var user1 = _context.Users.FirstOrDefault(x => x.User_id == id);
-                if (user1 != null)
+                var userFromDb = _context.Users.FirstOrDefault(x => x.User_id == id);
+                if (userFromDb != null)
                 {
-                    user1.FirstName = loggedInUser.FirstName;
-                    user1.LastName = loggedInUser.LastName;
-                    user1.RegistrationDate = loggedInUser.RegistrationDate;
-                    user1.UserName = loggedInUser.UserName;
-                    user1.RoleValue = loggedInUser.RoleValue;
-                    _context.Users.Update(user1);
+                    userFromDb.FirstName = loggedInUser.FirstName;
+                    userFromDb.LastName = loggedInUser.LastName;
+                    userFromDb.RegistrationDate = loggedInUser.RegistrationDate;
+                    userFromDb.UserName = loggedInUser.UserName;
+                    userFromDb.RoleValue = loggedInUser.RoleValue;
+                    _context.Users.Update(userFromDb);
                     await _context.SaveChangesAsync();
                     return Ok();
                 }

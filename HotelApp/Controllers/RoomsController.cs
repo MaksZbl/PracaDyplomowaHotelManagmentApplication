@@ -60,14 +60,14 @@ namespace HotelApp.Controllers
             try
             {
                 var currentUser = GetCurrentUser();
-                Room room1 = _context.Rooms.FirstOrDefault(x => x.Room_id == id);
-                if (room1 != null)
+                Room roomFromDb = _context.Rooms.FirstOrDefault(x => x.Room_id == id);
+                if (roomFromDb != null)
                 {
-                    room1.Number = room.Number;
-                    room1.Description = room.Description;
-                    room1.Type = room.Type;
-                    room1.IsFree = room.IsFree;
-                    _context.Rooms.Update(room1);
+                    roomFromDb.Number = room.Number;
+                    roomFromDb.Description = room.Description;
+                    roomFromDb.Type = room.Type;
+                    roomFromDb.IsFree = room.IsFree;
+                    _context.Rooms.Update(roomFromDb);
                     await _context.SaveChangesAsync();
                     return Ok();
                 }
