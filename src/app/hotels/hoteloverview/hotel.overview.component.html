@@ -34,7 +34,7 @@
                             <fa-icon style="padding: 2px;" [icon]="faStarIcon"></fa-icon>
                             <fa-icon style="padding: 2px;" [icon]="faStarIcon"></fa-icon>
                         </div>
-                        <button routerLink="/hotels" type="button" class="btn btn-light btn-widget">
+                        <button routerLink="booking" type="button" class="btn btn-light btn-widget">
                             <img src="/assets/Logo/Intro/sunbathing.png" alt="sunbathing">
                             Rezerwuj teraz
                         </button>
@@ -92,7 +92,7 @@
                                 <fa-icon [icon]="faHotTubIcon"></fa-icon>
                                 <p class="hotelServices_content_tekst">Sauna</p>
                             </div>
-                            <div class="hotelServices_content" *ngIf="viewAll && (spaServices || luxuryServices)">
+                            <div class="hotelServices_content" *ngIf="viewAll && luxuryServices">
                                 <fa-icon [icon]="faTableTennisIcon"></fa-icon>
                                 <p class="hotelServices_content_tekst">Tennis</p>
                             </div>
@@ -100,13 +100,13 @@
                                 <fa-icon [icon]="faSpaIcon"></fa-icon>
                                 <p class="hotelServices_content_tekst">Spa</p>
                             </div>
-                            <div class="hotelServices_content" *ngIf="viewAll && (spaServices || luxuryServices) ">
+                            <div class="hotelServices_content" *ngIf="viewAll && luxuryServices">
                                 <fa-icon [icon]="faCameraIcon"></fa-icon>
                                 <p class="hotelServices_content_tekst">Sala konferencyjna</p>
                             </div>
                         </div>
-                        <button type="button" (click)="SeeAll()" class="btn_seeAll btn btn-primary">Zobacz wszystkie
-                            usługi</button>
+                        <button type="button" (click)="SeeAll()"
+                            class="btn_seeAll btn btn-primary">{{buttonServicesText}}</button>
                     </div>
 
                     <div class="hotelOverview_overview">
@@ -150,8 +150,70 @@
                             </div>
                         </div>
                     </div>
+                    <div class="sliders">
+                        <h1 style="color: #000;">Pokoje i Apartamenty</h1>
+                        <div class="sliders_inner">
+                            <div class="roomsImagesSlider">
+                                <mdb-carousel [controls]="true" [indicators]="true" [animation]="'fade'">
+                                    <ng-template ngFor let-k [ngForOf]="roomsImages">
+                                        <mdb-carousel-item>
+                                            <img [src]="k.imageBase64" class="d-block w-100" alt="..." />
+                                        </mdb-carousel-item>
+                                    </ng-template>
+                                </mdb-carousel>
+                                <h1>Pokój Deluxe, podwójne łóżko</h1>
+                                <h5>Luksusowe pokoje 40 m², podwójny telewizor z możliwością oglądania 2 kanałów
+                                    jednocześnie, 1 łazienka, play station, darmowa sieć WIFI. Połączone pokoje na
+                                    żądanie.</h5>
+                            </div>
+                            <div class="HotelImagesSlider">
+                                <mdb-carousel [controls]="true" [indicators]="true" [animation]="'fade'">
+                                    <mdb-carousel-item>
+                                        <img src='\assets\img\Hotele\pool\Memories Palace Luxury Resort Piotrków Trybunalski_pool.jpg'
+                                            class="d-block w-100" alt="..." />
+                                    </mdb-carousel-item>
+                                    <mdb-carousel-item>
+                                        <img src='\assets\img\Hotele\pool\pool-1318071_1280.jpg' class="d-block w-100"
+                                            alt="..." />
+                                    </mdb-carousel-item>
+                                    <mdb-carousel-item>
+                                        <img src='\assets\img\Hotele\pool\summer-1719401_1280.jpg' class="d-block w-100"
+                                            alt="..." />
+                                    </mdb-carousel-item>
+                                    <mdb-carousel-item>
+                                        <img src='\assets\img\Hotele\pool\swimming-pool-504780_1280.jpg'
+                                            class="d-block w-100" alt="..." />
+                                    </mdb-carousel-item>
+                                    <mdb-carousel-item>
+                                        <img src='\assets\img\Hotele\pool\pool-bar-3652849_1280.jpg'
+                                            class="d-block w-100" alt="..." />
+                                    </mdb-carousel-item>
+                                </mdb-carousel>
+                                <h1>Teren hotelu</h1>
+                                <h5>Teren naszego hotelu zdobią różnorodne rośliny. Wiele basenów i scena na różne
+                                    imprezy. Miła obsługa i przyjemna lokalizacja to klucz do naszego sukcesu.</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="viewMore">
+                        <div class="viewMore_inner">
+                            <img src="\assets\img\Animation\people-2590551_1280.jpg" alt="animation">
+                            <div class="viewMore_content">
+                                <h5 class="viewMore_suptitle">
+                                    Spotkanie ze wspomnieniami
+                                </h5>
+                                <h1 class="viewMore_title">
+                                    Memories Palace Hotels
+                                </h1>
+                                <p>Zapoznaj się z naszymi propozycjami</p>
+                                <button class="btn btn-primary btn-viewMore">Dowiedz się więcej</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </ng-template>
         </ng-template>
     </div>
 </div>
+<app-footer></app-footer>
+<app-copyright></app-copyright>

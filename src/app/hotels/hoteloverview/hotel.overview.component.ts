@@ -13,9 +13,11 @@ export class HotelOverviewComponent implements OnInit {
   constructor(private router: Router, private http: HttpClient) { }
   faSnowflakeIcon = faSnowflake; faWineGlassIcon = faWineGlass; faUtensilsIcon = faUtensils; faParkingIcon = faParking; faDumbbellIcon = faDumbbell; faSwimmingPoolIcon = faSwimmingPool; faTableTennisIcon = faTableTennis; faSpaIcon = faSpa; faHotTubIcon = faHotTub; faWifiIcon = faWifi; faChildIcon = faChild; faFlagIcon = faFlag; faStarIcon = faStar; faCameraIcon = faCamera; faEnvelopeIcon = faEnvelope;
   hotel: any;
-  images: any;
+  images: any[] = [];
+  roomsImages: any;
   viewAll: boolean = false;
   type: number;
+  buttonServicesText: string = "Zobacz wszystkie usługi";
   comfortableServices: boolean = false; luxuryServices: boolean = false; spaServices: boolean = false;
   readonly baseUrlHotel = `https://localhost:5001/api/Hotels`;
 
@@ -68,9 +70,11 @@ export class HotelOverviewComponent implements OnInit {
   SeeAll() {
     if (this.viewAll == false) {
       this.viewAll = true;
+      this.buttonServicesText = "Zobacz mniej usług";
     }
     else {
       this.viewAll = false;
+      this.buttonServicesText = "Zobacz wszystkie usługi";
     }
     console.log(this.viewAll);
   }
@@ -79,7 +83,9 @@ export class HotelOverviewComponent implements OnInit {
     const str = this.CheckHotel();
     this.http.get(`${this.baseUrlHotel}/${str}`).subscribe(response => {
       this.hotel = response;
-      this.images = this.hotel[0].images
+      this.images = this.hotel[0].images;
+      this.roomsImages = this.hotel[0].rooms[0].images;
+      console.log(this.roomsImages)
       this.checkServices();
       this.checkType();
     });

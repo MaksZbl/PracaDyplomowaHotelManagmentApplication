@@ -15,6 +15,7 @@
 
 .header_logo_link {
     font-family: KaushanScript;
+    max-width: 300px;
     text-decoration: none;
     color: rgb(250, 192, 3);
 }
@@ -22,15 +23,17 @@
 .header_logo_link_img {
 
     display: block;
-    margin: 0 auto;
+    /*margin: 0 auto;*/
     position: relative;
-    max-width: 100%;
+    width: 100%;
     max-height: 100%;
     height: auto;
     display: block;
 }
 
 .header_inner {
+    display: flex;
+    justify-content: space-around;
     max-width: 100%;
     max-height: 100%;
     align-items: center;
@@ -39,10 +42,9 @@
 
 .nav {
     padding-top: 20px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 400;
     display: inline-block;
-    margin: 0 auto;
     display: block;
 }
 
@@ -80,23 +82,15 @@
 }
 
 .btn-user {
-    position: absolute;
-    top: 50px;
-    right: 200px;
-    z-index: 1;
-    padding: 0;
+    display: block;
     background: transparent;
     border-width: 2px;
     padding: 3px;
 }
 
 .btn-cabinet {
+    display: block;
     font-family: Montsserat;
-    position: absolute;
-    top: 45px;
-    right: 50px;
-    z-index: 1;
-    padding: 0;
     background: #000;
     padding: 10px;
     border-radius: 20px;

@@ -1,11 +1,19 @@
 .footer {
     background: rgb(198, 207, 214);
     margin-top: 50px;
+
 }
 
 .footer_inner {
     text-align: center;
     align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header_logo_link_img {
+    max-width: 300px;
+    height: auto;
 }
 
 a {

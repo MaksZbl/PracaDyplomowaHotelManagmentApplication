@@ -269,3 +269,99 @@
     font-family: KaushanScript;
     font-size: 30px;
 }
+
+.sliders {
+    margin-top: 50px;
+}
+
+.sliders h1 {
+    font-family: KaushanScript;
+    font-size: 40px;
+    margin-bottom: 40px;
+}
+
+.sliders_inner {
+    display: flex;
+}
+
+.roomsImagesSlider {
+    width: 50%;
+}
+
+.HotelImagesSlider {
+    width: 50%;
+    margin-left: 100px;
+}
+
+.sliders_inner h1 {
+    font-family: KaushanScript;
+    font-size: 28px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+
+.sliders_inner h5 {
+    line-height: 30px;
+    font-size: 18px;
+    font-family: Montserrat;
+    font-weight: 100;
+}
+
+.viewMore_inner {
+    display: flex;
+    text-align: center;
+}
+
+.viewMore {
+    margin-top: 100px;
+    padding: 100px;
+    background-color: rgb(240, 239, 239);
+}
+
+.viewMore_inner img {
+    display: block;
+    width: 50%;
+    height: auto;
+}
+
+.viewMore_content {
+    margin-left: 100px;
+}
+
+.viewMore_content h5 {
+    font-family: KaushanScript;
+}
+
+.viewMore_content h5:after {
+    content: "";
+    display: block;
+    margin: 20px auto;
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(to right, rgb(204, 203, 203), #000, rgb(204, 203, 203));
+}
+
+.viewMore_content h1 {
+    font-family: Montserrat;
+    font-weight: bold;
+}
+
+.viewMore_content p {
+    margin-top: 20px;
+    font-family: Montserrat;
+}
+
+.btn-viewMore {
+    margin-top: 20px;
+    background: transparent;
+    color: #000;
+    border: 1px solid #000;
+    width: 300px;
+    padding: 20px;
+    border-radius: 0;
+}
+
+.btn-viewMore:hover {
+    background: rgb(204, 203, 203);
+}
