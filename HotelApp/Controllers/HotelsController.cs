@@ -42,7 +42,10 @@ namespace HotelApp.Controllers
             try
             {
                 var currentUser = GetCurrentUser();
-                var hotel = _context.Hotels.Where(x => x.Title.Contains(title));
+                IQueryable<Hotel> hotel = _context.Hotels.Where(x => x.Title.Contains(title));
+                if (hotel.Count() == 0){
+                    return NotFound();
+                }
                 return Ok(hotel);
             }
             catch (ArgumentNullException ex)
@@ -87,8 +90,16 @@ namespace HotelApp.Controllers
             try
             {
                 var currentUser = GetCurrentUser();
-                _context.Hotels.Add(hotel);
-                await _context.SaveChangesAsync();
+                List<Hotel> hotels = new List<Hotel>();
+                hotels = await _context.Hotels.ToListAsync();
+                foreach (var hotelFromDb in hotels)
+                {
+                    if(hotelFromDb.Title != hotel.Title)
+                    {
+                        _context.Hotels.Add(hotel);
+                        await _context.SaveChangesAsync();
+                    }
+                }
                 return Ok("$Hi admin");
             }
             catch (Exception ex)
