@@ -24,7 +24,7 @@ export class HotelOverviewComponent implements OnInit {
   CheckHotel() {
     var url = this.router.url;
     var str = "";
-    for (let i = url.length - 15; i < url.length; i++) {
+    for (let i = 10; i < url.length; i++) {
       if (i + 1 < url.length) {
         if (url[i + 1] === url[i + 1].toUpperCase()) {
           str += url[i] + " ";
@@ -81,7 +81,9 @@ export class HotelOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     const str = this.CheckHotel();
+    console.log(str);
     this.http.get(`${this.baseUrlHotel}/${str}`).subscribe(response => {
+      console.log(str);
       this.hotel = response;
       this.images = this.hotel[0].images;
       this.roomsImages = this.hotel[0].rooms[0].images;
