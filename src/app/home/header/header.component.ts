@@ -3,7 +3,7 @@ import { Router, RouterLink } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { HotelService } from '../../shared/hotel.service';
-import { faBook, faTag, faMoneyCheckAlt, faArrowCircleRight, faToolbox } from '@fortawesome/free-solid-svg-icons';
+import { faBook, faTag, faMoneyCheckAlt, faArrowCircleRight, faToolbox, faEye } from '@fortawesome/free-solid-svg-icons';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ToastrService } from 'ngx-toastr';
 
@@ -22,9 +22,19 @@ export class HeaderComponent implements OnInit {
   AuthorizeUser: boolean = false;
   username: string;
   password: string;
-  faBookIcon = faBook; faMoneyIcon = faMoneyCheckAlt; faTagIcon = faTag; faArrowCircleRightIcon = faArrowCircleRight; faToolboxIcon = faToolbox;
+  type: string = "password";
+  faBookIcon = faBook; faMoneyIcon = faMoneyCheckAlt; faTagIcon = faTag; faArrowCircleRightIcon = faArrowCircleRight; faToolboxIcon = faToolbox; faEyeIcon = faEye;
 
   constructor(private router: Router, private http: HttpClient, public service: HotelService, public toastr: ToastrService) {
+  }
+
+  ShowPassword() {
+    if (this.type == "password") {
+      this.type = "text";
+    }
+    else {
+      this.type = "password";
+    }
   }
   login(form: NgForm) {
     const credentials = {
@@ -71,6 +81,7 @@ export class HeaderComponent implements OnInit {
         this.AuthorizeUser = true;
         this.router.navigate(["/"]);
         this.toastr.success("Udane zalogowanie", "Logowanie");
+        this.router.navigate([this.router.url]);
 
       }, err => {
         console.log(err)
@@ -79,6 +90,7 @@ export class HeaderComponent implements OnInit {
   }
   DisplayOverlay() {
     this.isDisplay = !this.isDisplay;
+    console.log(this.isDisplay);
   }
 
   DisplayCabinetOverlay() {

@@ -10,4 +10,6 @@
 @font-face {
     font-family: KaushanScript;
     src: url(/assets/Fonts/KaushanScript/KaushanScript-Regular.ttf) format('truetype');
-}@import '~mdb-angular-ui-kit/assets/scss/mdb.scss';
+}
+
+@import '~mdb-angular-ui-kit/assets/scss/mdb.scss';

@@ -39,6 +39,15 @@ import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
 import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { BookingComponent } from './Booking/booking/booking.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { RegistrationComponent } from './home/registration/registration.component';
+import { MyBookingsComponent } from './my-bookings/my-bookings.component';
+
 
 @NgModule({
   declarations: [
@@ -57,6 +66,8 @@ import { BookingComponent } from './Booking/booking/booking.component';
     EmployeepanelroomsComponent,
     HotelOverviewComponent,
     BookingComponent,
+    RegistrationComponent,
+    MyBookingsComponent,
   ],
   imports: [
     HttpClientModule,
@@ -84,6 +95,12 @@ import { BookingComponent } from './Booking/booking/booking.component';
     MdbTabsModule,
     MdbTooltipModule,
     MdbValidationModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

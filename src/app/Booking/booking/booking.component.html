@@ -1,1 +1,36 @@
-<p>booking works!</p>
+<div class="booking">
+    <div class="booking_inner">
+        <h1 style="font-family: KaushanScript; font-size: 50px; margin-bottom: 30px;">Rezerwacja pokoju</h1>
+        <form action="">
+            <mat-form-field color="accent" appearance="fill">
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [dateFilter]="myFilter" [formGroup]="range" [rangePicker]="picker">
+                    <input matStartDate readonly formControlName="start" placeholder="Start date">
+                    <input matEndDate readonly formControlName="end" placeholder="End date">
+                </mat-date-range-input>
+                <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+                <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+                <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+            </mat-form-field>
+            <p style="font-family: KaushanScript; margin-top: 10px; font-size: 20px;">Date pobytu przyjmujemy tylko na
+                2023
+                rok</p>
+        </form>
+        <form class="form-autocomplete" style="margin-top: 20px;">
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Typ pokoju</mat-label>
+                <input type="text" [(ngModel)]="booking.type" ngModel placeholder="Pick one" aria-label="Number"
+                    matInput [formControl]="myControl" [matAutocomplete]="auto">
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </form>
+        <div *ngIf="invalidDateOrType" class="alert alert-danger">Invalid date or type</div>
+        <button class="btn btn-primary" (click)="submitBookingForm()">Wyslij</button>
+    </div>
+</div>

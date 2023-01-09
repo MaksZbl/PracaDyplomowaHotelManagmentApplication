@@ -167,6 +167,7 @@
 
 .overviewTextContent {
     padding: 10px;
+    line-height: 25px;
     font-size: 20px;
     font-family: Montserrat;
 }
@@ -191,6 +192,7 @@
 
 .overviewCardContent {
     background-color: #333;
+    font-size: 18px;
     padding: 20px;
     font-family: KaushanScript;
 }
@@ -206,6 +208,7 @@
 
 .overviewCardContact {
     background-color: #333;
+    font-size: 18px;
     padding: 20px;
     font-family: KaushanScript;
 }
@@ -221,6 +224,7 @@
 
 .overviewCardContactEmail {
     background-color: #333;
+    font-size: 18px;
     padding: 20px;
     font-family: KaushanScript;
     color: rgb(199, 190, 190);

@@ -1,0 +1,19 @@
+.booking {
+    background: white;
+    padding: 50px;
+    height: 500px;
+    width: 600px;
+}
+
+.booking_inner {
+    text-align: center;
+}
+
+.mat-form-field {
+    width: 50%;
+}
+
+.mat-form-field h1 {
+    font-family: KaushanScript;
+    text-align: center;
+}

@@ -172,7 +172,7 @@
 }
 
 label {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .btn-log {
@@ -205,7 +205,17 @@ label {
     text-decoration: underline;
 }
 
+.registration {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
 
+.registration a {
+    font-family: KaushanScript;
+    color: #fff;
+    font-size: 20px;
+}
 
 .list-group-item {
     background: transparent;

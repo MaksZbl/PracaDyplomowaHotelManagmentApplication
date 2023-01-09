@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
 import { faSnowflake, faWineGlass, faUtensils, faParking, faDumbbell, faSwimmingPool, faTableTennis, faSpa, faHotTub, faWifi, faChild, faFlag, faStar, faCamera, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { BookingComponent } from 'src/app/Booking/booking/booking.component';
+import { HeaderComponent } from 'src/app/home/header/header.component';
+import { ToastrService } from 'ngx-toastr';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-hotel-piotrkow',
@@ -10,7 +15,7 @@ import { faSnowflake, faWineGlass, faUtensils, faParking, faDumbbell, faSwimming
 })
 export class HotelOverviewComponent implements OnInit {
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient, public dialog: MatDialog, public toastr: ToastrService) { }
   faSnowflakeIcon = faSnowflake; faWineGlassIcon = faWineGlass; faUtensilsIcon = faUtensils; faParkingIcon = faParking; faDumbbellIcon = faDumbbell; faSwimmingPoolIcon = faSwimmingPool; faTableTennisIcon = faTableTennis; faSpaIcon = faSpa; faHotTubIcon = faHotTub; faWifiIcon = faWifi; faChildIcon = faChild; faFlagIcon = faFlag; faStarIcon = faStar; faCameraIcon = faCamera; faEnvelopeIcon = faEnvelope;
   hotel: any;
   images: any[] = [];
@@ -19,6 +24,7 @@ export class HotelOverviewComponent implements OnInit {
   type: number;
   buttonServicesText: string = "Zobacz wszystkie usługi";
   comfortableServices: boolean = false; luxuryServices: boolean = false; spaServices: boolean = false;
+  jwtHelper: JwtHelperService = new JwtHelperService();
   readonly baseUrlHotel = `https://localhost:5001/api/Hotels`;
 
   CheckHotel() {
@@ -77,6 +83,19 @@ export class HotelOverviewComponent implements OnInit {
       this.buttonServicesText = "Zobacz wszystkie usługi";
     }
     console.log(this.viewAll);
+  }
+
+  openBookingDialog() {
+    if (sessionStorage.getItem("jwt") == null || this.jwtHelper.isTokenExpired(sessionStorage.getItem("jwt") || "")) {
+      this.toastr.error("Zaloguj sie żeby kontynuować");
+      return null;
+    }
+    const dialogRef = this.dialog.open(BookingComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      return result;
+    });
+    return null;
   }
 
   ngOnInit(): void {

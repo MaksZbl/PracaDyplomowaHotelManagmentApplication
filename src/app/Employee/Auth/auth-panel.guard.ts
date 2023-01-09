@@ -18,6 +18,11 @@ export class AuthPanelGuard implements CanActivate {
             return true;
         }
         sessionStorage.removeItem("jwt");
+        sessionStorage.removeItem("jwt");
+        sessionStorage.removeItem("role");
+        sessionStorage.removeItem("username");
+        sessionStorage.removeItem("firstname");
+        sessionStorage.removeItem("lastname");
         this.router.navigate(["/"]);
         return false;
     }

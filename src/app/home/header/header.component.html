@@ -13,12 +13,13 @@
                 <ul class="list-group">
                     <h5 style="color: yellow; font-size: 16px; font-weight: bold;">Witam {{AuthorizeUserFirstname}}
                         {{AuthorizeUserLastname}}</h5>
-                    <a *ngIf="AuthorizeUserRole === 'Employee' || 'Admin'" routerLink="/employeepanel">
+                    <a *ngIf="AuthorizeUserRole === 'Employee' || AuthorizeUserRole === 'Admin'"
+                        routerLink="/employeepanel">
                         <li class="list-group-item">Employee panel</li>
                         <fa-icon [icon]="faToolboxIcon" style="color:rgb(25, 0, 255); display: block; padding: 5px; ">
                         </fa-icon>
                     </a>
-                    <a href="/">
+                    <a routerLink="/myBookings">
                         <li class="list-group-item">Moje rezerwacje</li>
                         <fa-icon [icon]="faBookIcon" style="color:red; display: block; padding: 5px; "></fa-icon>
                     </a>
@@ -51,16 +52,21 @@
                         <input type="text" NgModel class="form-control" id="username" name="username"
                             [(ngModel)]="username" placeholder="Enter username" required autofocus>
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" [(ngModel)]="password" NgModel class="form-control"
-                            id="exampleInputPassword1" placeholder="Password" name="password" required>
+                    <label for="exampleInputPassword1">Password</label>
+                    <div class="form-group d-flex align-items-center">
+                        <input type={{type}} style="margin-right: 5px;" [(ngModel)]="password" NgModel
+                            class="form-control" id="exampleInputPassword1" placeholder="Password" name="password"
+                            required>
+                        <fa-icon [icon]="faEyeIcon" style="cursor: pointer;" (click)="ShowPassword()"></fa-icon>
                     </div>
                     <div class="forgot_password">
                         <a href="/">Forgot password?</a>
                     </div>
                     <button type="submit" class="btn btn-log btn-primary">Login</button>
                 </form>
+                <div class="registration">
+                    <a routerLink="/registration">Sign up</a>
+                </div>
             </div>
         </ng-template>
 
