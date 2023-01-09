@@ -11,7 +11,6 @@ namespace HotelApp.Models
         public string UserName { get; set; }
         [DataType(DataType.Password)]
         [StringLength(100, ErrorMessage = "{0} powinno zawierać min {2} i max {1}", MinimumLength = 8)]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public string Password { get; set; }
         [Required]
         [DataType(DataType.EmailAddress)]

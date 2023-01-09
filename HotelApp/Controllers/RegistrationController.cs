@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System;
 using HotelApp.EF;
 using System.Security.Cryptography;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace HotelApp.Controllers
 {
@@ -54,8 +56,9 @@ namespace HotelApp.Controllers
         private LoggedInUser CreateUser(LoggedInUser user)
         {
             var context = new ValidationContext(user);
+            var users = _context.Users.Where(x=>x.UserName == user.UserName && x.EmailAdress == user.EmailAdress && x.Mobile == user.Mobile);
             var results = new List<ValidationResult>();
-            if (!Validator.TryValidateObject(user, context, results, true))
+            if (!Validator.TryValidateObject(user, context, results, true) || users != null)
             {
                 return null;
             }

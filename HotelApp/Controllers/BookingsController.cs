@@ -70,7 +70,8 @@ namespace HotelApp.Controllers
                     bookFromDb.Type = booking.Type;
                     bookFromDb.Title = booking.Title;
                     bookFromDb.Description = booking.Description;
-                    bookFromDb.Date = booking.Date;
+                    bookFromDb.StartDate = booking.StartDate;
+                    bookFromDb.EndDate = booking.EndDate;
                     bookFromDb.Customer_id = booking.Customer_id;
                     _context.Bookings.Update(bookFromDb);
                     await _context.SaveChangesAsync();
@@ -94,15 +95,19 @@ namespace HotelApp.Controllers
         {
             try
             {
-                var checkRoom = _context.Rooms.FirstOrDefault(x => x.Room_id == booking.RoomId);
+                var checkRoom = _context.Rooms.FirstOrDefault(x=>x.IsFree==true && x.Hotel.Hotel_id == int.Parse(booking.Description) && x.Type == booking.Type  );
                 var currentUser = GetCurrentUser();
-                if(checkRoom.IsFree == true)
+                if (checkRoom.IsFree == true)
                 {
                     checkRoom.IsFree = false;
-                    if(currentUser.RoleValue == "LoggedInUser")
+                    if(currentUser.RoleValue == "LoggedInUser" || currentUser.RoleValue == "Employee")
                     {
                         var checkUser = _context.Users.FirstOrDefault(x => x.UserName == currentUser.UserName);
+                        checkRoom.BookingId = booking.Booking_id;
+                        booking.RoomId = checkRoom.Room_id;
                         booking.Customer_id = checkUser.User_id;
+                        booking.Title = $"Room reservation #{booking.Booking_id}";
+                        booking.Description = $"Room reservation #{booking.Booking_id}";
                     }
                     _context.Bookings.Add(booking);
                     await _context.SaveChangesAsync();

@@ -18,7 +18,8 @@ namespace HotelApp.Models
         [Required]
         [StringLength(5000, MinimumLength = 5)]
         public string Description { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public virtual LoggedInUser LoggedInUser { get; set; }
         [ForeignKey("LoggedInUser")]
         public int? Customer_id { get; set; }

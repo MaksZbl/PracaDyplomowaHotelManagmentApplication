@@ -4,14 +4,16 @@ using HotelApp.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HotelApp.Migrations
 {
     [DbContext(typeof(HotelAppDbContext))]
-    partial class HotelAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230104120718_SecondInitv7")]
+    partial class SecondInitv7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
