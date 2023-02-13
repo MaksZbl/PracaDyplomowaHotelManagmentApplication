@@ -42,4 +42,15 @@ export class BookingService {
         console.log(err);
       })
   }
+
+  getBookings() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.getItem("jwt") || ""}`,
+      })
+    };
+
+    return this.http.get(this.baseUrl, httpOptions);
+  }
 }

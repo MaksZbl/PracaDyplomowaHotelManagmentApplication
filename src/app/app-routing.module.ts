@@ -9,6 +9,7 @@ import { RegistrationComponent } from './home/registration/registration.componen
 import { HotelOverviewComponent } from './hotels/hoteloverview/hotel.overview.component';
 import { HotelsComponent } from './hotels/hotels.component';
 import { MyBookingsComponent } from './my-bookings/my-bookings.component';
+import { PaymentDetailComponent } from './payment-detail/payment-detail.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -28,7 +29,8 @@ const routes: Routes = [
   { path: 'hotels/MemoriesPalaceLuxuryResort&SpaWroclaw/booking', component: BookingComponent, canActivate: [AuthPanelGuard] },
   { path: 'hotels/MemoriesPalaceLuxuryResort&SpaGdynia/booking', component: BookingComponent, canActivate: [AuthPanelGuard] },
   { path: 'registration', component: RegistrationComponent },
-  { path: 'myBookings', component: MyBookingsComponent },
+  { path: 'myBookings', component: MyBookingsComponent, canActivate: [AuthPanelGuard] },
+  { path: 'paymentDetail', component: PaymentDetailComponent, canActivate: [AuthPanelGuard] }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

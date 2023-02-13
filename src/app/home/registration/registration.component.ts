@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Registration } from 'src/app/shared/registration.model';
 import { RegistrationService } from '../../shared/registration.service'
 import { faEye } from '@fortawesome/free-solid-svg-icons'
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -33,10 +35,14 @@ export class RegistrationComponent implements OnInit {
     }
   }
 
-  constructor(public service: RegistrationService) { }
+  constructor(public service: RegistrationService, private router: Router, public toastr: ToastrService) { }
 
   Register() {
     this.service.postRegistration(this.registration);
+    setTimeout(() => {
+      this.toastr.warning("Zaloguj sie");
+      this.router.navigate(["/hotels"]);
+    }, 1000)
   }
 
   ngOnInit(): void {

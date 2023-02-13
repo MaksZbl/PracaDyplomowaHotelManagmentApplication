@@ -1,1 +1,35 @@
-<p>my-bookings works!</p>
+<div>
+    <app-header></app-header>
+</div>
+
+
+<div style="padding-top: 150px;">
+    <h1 style="display: flex; justify-content: center; font-size: 50px;">Moje rezerwacje</h1>
+    <div class="container" style="font-size: 18px;">
+        <table class="table table-hover smt-3 mt-5">
+            <thead class="thead-light">
+                <tr>
+                    <th>Nazwa hotelu</th>
+                    <th>Typ pokoju</th>
+                    <th>Zameldowanie</th>
+                    <th>Wymeldowanie</th>
+                    <th>Czy zapłacone</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-template ngFor let-booking [ngForOf]="bookingsList">
+                    <tr style="cursor: pointer;">
+                        <td>{{booking.room.hotel.title}}</td>
+                        <td>{{booking.type}}</td>
+                        <td>{{toMoment(booking.startDate)}}</td>
+                        <td>{{toMoment(booking.endDate)}}</td>
+                        <td *ngIf="booking.isPayed==false" style="color: red;">Nie zapłacone <br><a
+                                routerLink="/paymentDetail" (click)="setBookingId(booking.booking_id)">Zapłać teraz</a>
+                        </td>
+                        <td *ngIf="booking.isPayed==true" style="color: green;">Zapłacone</td>
+                    </tr>
+                </ng-template>
+            </tbody>
+        </table>
+    </div>
+</div>

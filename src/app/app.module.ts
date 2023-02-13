@@ -47,6 +47,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { RegistrationComponent } from './home/registration/registration.component';
 import { MyBookingsComponent } from './my-bookings/my-bookings.component';
+import { PaymentDetailComponent } from './payment-detail/payment-detail.component';
+import { BookingService } from './shared/booking.service';
+import { RegistrationService } from './shared/registration.service';
+import { HotelService } from './shared/hotel.service';
+import { PaymentService } from './shared/payment.service';
+import { RateService } from './shared/rate.service';
 
 
 @NgModule({
@@ -68,6 +74,7 @@ import { MyBookingsComponent } from './my-bookings/my-bookings.component';
     BookingComponent,
     RegistrationComponent,
     MyBookingsComponent,
+    PaymentDetailComponent,
   ],
   imports: [
     HttpClientModule,
@@ -102,7 +109,13 @@ import { MyBookingsComponent } from './my-bookings/my-bookings.component';
     MatInputModule,
     MatAutocompleteModule
   ],
-  providers: [],
+  providers: [
+    BookingService,
+    RegistrationService,
+    HotelService,
+    PaymentService,
+    RateService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

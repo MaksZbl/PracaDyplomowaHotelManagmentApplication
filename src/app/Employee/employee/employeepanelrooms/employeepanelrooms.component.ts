@@ -33,8 +33,6 @@ export class EmployeepanelroomsComponent implements OnInit {
       this.user = response;
       this.userHotel = this.user.hotel.title;
       this.roomsList = this.user.hotel.rooms;
-      console.log(this.userHotel);
-      console.log(this.roomsList);
     });
   }
 

@@ -7,6 +7,8 @@ import { BookingComponent } from 'src/app/Booking/booking/booking.component';
 import { HeaderComponent } from 'src/app/home/header/header.component';
 import { ToastrService } from 'ngx-toastr';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { RateService } from 'src/app/shared/rate.service';
 
 @Component({
   selector: 'app-hotel-piotrkow',
@@ -15,12 +17,14 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class HotelOverviewComponent implements OnInit {
 
-  constructor(private router: Router, private http: HttpClient, public dialog: MatDialog, public toastr: ToastrService) { }
+  constructor(private router: Router, private http: HttpClient, public dialog: MatDialog, public toastr: ToastrService, public rateService: RateService) { }
   faSnowflakeIcon = faSnowflake; faWineGlassIcon = faWineGlass; faUtensilsIcon = faUtensils; faParkingIcon = faParking; faDumbbellIcon = faDumbbell; faSwimmingPoolIcon = faSwimmingPool; faTableTennisIcon = faTableTennis; faSpaIcon = faSpa; faHotTubIcon = faHotTub; faWifiIcon = faWifi; faChildIcon = faChild; faFlagIcon = faFlag; faStarIcon = faStar; faCameraIcon = faCamera; faEnvelopeIcon = faEnvelope;
   hotel: any;
   images: any[] = [];
   roomsImages: any;
   viewAll: boolean = false;
+  currentRate: number = 0;
+  rateOfHotel: any;
   type: number;
   buttonServicesText: string = "Zobacz wszystkie usługi";
   comfortableServices: boolean = false; luxuryServices: boolean = false; spaServices: boolean = false;
@@ -106,9 +110,13 @@ export class HotelOverviewComponent implements OnInit {
       this.hotel = response;
       this.images = this.hotel[0].images;
       this.roomsImages = this.hotel[0].rooms[0].images;
-      console.log(this.roomsImages)
+      console.log(this.hotel)
       this.checkServices();
       this.checkType();
+      this.rateOfHotel = this.rateService.getAvRate(this.hotel[0].hotel_id).subscribe((res: any) => {
+        this.currentRate = res.avRate;
+        console.log(this.currentRate)
+      });
     });
   }
 }

@@ -6,6 +6,8 @@ import { map, startWith } from 'rxjs/operators';
 import { Booking } from 'src/app/shared/booking.model';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-booking',
@@ -16,7 +18,7 @@ export class BookingComponent implements OnInit {
 
   readonly baseUrlHotel = `https://localhost:5001/api/Hotels`;
 
-  constructor(private service: BookingService, private router: Router, private http: HttpClient) { }
+  constructor(private service: BookingService, private router: Router, private http: HttpClient, public dialog: MatDialog) { }
 
   booking: Booking = new Booking();
 
@@ -54,7 +56,6 @@ export class BookingComponent implements OnInit {
     return str;
   }
 
-
   myFilter = (d: Date | null): boolean => {
     const year = (d || new Date()).getFullYear();
     const currentDate = (d || new Date()).getDate();
@@ -72,10 +73,17 @@ export class BookingComponent implements OnInit {
     this.http.get(`${this.baseUrlHotel}/${str}`).subscribe(response => {
       this.hotel = response;
       this.booking.startDate = this.range.controls.start.value || new Date();
+      this.booking.startDate = new Date(Date.UTC(this.booking.startDate.getFullYear(), this.booking.startDate.getMonth(), this.booking.startDate.getDate()));
       this.booking.endDate = this.range.controls.end.value || new Date();
+      this.booking.endDate = new Date(Date.UTC(this.booking.endDate.getFullYear(), this.booking.endDate.getMonth(), this.booking.endDate.getDate()));
       this.booking.description = `  ${this.hotel[0].hotel_id}  `
       this.service.postBooking(this.booking);
     });
+    var timeDif = Math.abs(Number((this.range.controls.end.value)?.getTime()) - Number((this.range.controls.start.value)?.getTime()));
+    var diffDays = Math.ceil(timeDif / (1000 * 3600 * 24));
+    console.log(diffDays)
+    this.dialog.closeAll();
+    this.router.navigate(["myBookings"]);
   }
 
 

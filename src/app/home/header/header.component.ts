@@ -113,6 +113,7 @@ export class HeaderComponent implements OnInit {
     else {
       this.AuthorizeUserFirstname = sessionStorage.getItem("firstname") || "";
       this.AuthorizeUserLastname = sessionStorage.getItem("lastname") || "";
+      this.AuthorizeUserRole = sessionStorage.getItem("role") || "";
       this.AuthorizeUser = true;
     }
   }

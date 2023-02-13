@@ -34,10 +34,17 @@
                             <fa-icon style="padding: 2px;" [icon]="faStarIcon"></fa-icon>
                             <fa-icon style="padding: 2px;" [icon]="faStarIcon"></fa-icon>
                         </div>
-                        <button mat-button (click)="openBookingDialog()" type="button" class="btn btn-light btn-widget">
-                            <img src="/assets/Logo/Intro/sunbathing.png" alt="sunbathing">
-                            Rezerwuj teraz
-                        </button>
+                        <div>
+                            <button mat-button (click)="openBookingDialog()" type="button"
+                                class="btn btn-light btn-widget">
+                                <img src="/assets/Logo/Intro/sunbathing.png" alt="sunbathing">
+                                Rezerwuj teraz
+                            </button>
+                        </div>
+                        <div class="hotel_rating">
+                            <ngb-rating [(rate)]="currentRate"></ngb-rating>
+                            <pre><b>{{currentRate}}/10</b></pre>
+                        </div>
                     </div>
                 </div>
                 <div class="container">

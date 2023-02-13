@@ -25,6 +25,7 @@
                         </th>
                         <th scope="col">Type</th>
                         <th scope="col">Dostępność</th>
+                        <th scope="col">Czy zapłacone</th>
                     </tr>
                 </thead>
                 <ng-template ngFor let-room [ngForOf]="roomsList">
@@ -41,6 +42,12 @@
                             <td *ngIf="room.isFree === false"
                                 (click)="EditRoomIsFree(room.room_id, room.description, room.number, room.type, room.isFree)"
                                 style="color: red; cursor: pointer;"><fa-icon [icon]="faExclamationIcon"></fa-icon></td>
+                            <div *ngIf="room.booking != null">
+                                <td *ngIf="room.booking.isPayed === true" style="color: green;">Tak
+                                </td>
+                                <td *ngIf="room.booking.isPayed === false" style="color: red;">Nie
+                                </td>
+                            </div>
                         </tr>
                     </tbody>
                 </ng-template>
