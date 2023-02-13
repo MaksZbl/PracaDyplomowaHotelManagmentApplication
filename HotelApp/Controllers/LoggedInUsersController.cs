@@ -95,7 +95,7 @@ namespace HotelApp.Controllers
                 var currentUser = GetCurrentUser();
                 _context.Users.Add(loggedInUser);
                 await _context.SaveChangesAsync();
-                return Ok("$Hi admin");
+                return Ok();
             }
             catch (Exception ex)
             {

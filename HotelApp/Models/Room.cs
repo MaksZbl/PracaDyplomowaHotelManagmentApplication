@@ -26,7 +26,9 @@ namespace HotelApp.Models
         public double Rent { get; set; }
         public virtual List<RoomImage> images { get; set; }
         public virtual Booking Booking { get; set; }
+        
         [ForeignKey("Booking")]
         public int? BookingId { get; set; }
+        
     }
 }

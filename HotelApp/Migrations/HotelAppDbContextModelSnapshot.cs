@@ -26,9 +26,6 @@ namespace HotelApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("Customer_id")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(5000)
@@ -36,6 +33,15 @@ namespace HotelApp.Migrations
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsPayed")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("LoggedInUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PaymentId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("RoomId")
                         .HasColumnType("int");
@@ -55,7 +61,15 @@ namespace HotelApp.Migrations
 
                     b.HasKey("Booking_id");
 
-                    b.HasIndex("Customer_id");
+                    b.HasIndex("LoggedInUserId");
+
+                    b.HasIndex("PaymentId")
+                        .IsUnique()
+                        .HasFilter("[PaymentId] IS NOT NULL");
+
+                    b.HasIndex("RoomId")
+                        .IsUnique()
+                        .HasFilter("[RoomId] IS NOT NULL");
 
                     b.ToTable("Bookings");
                 });
@@ -155,7 +169,7 @@ namespace HotelApp.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Password")
-                        .ValueGeneratedOnAddOrUpdate()
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -184,14 +198,14 @@ namespace HotelApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("Booking_id")
+                        .HasColumnType("int");
+
                     b.Property<string>("CardNumber")
                         .HasColumnType("nvarchar(16)");
 
                     b.Property<string>("CardOwnerName")
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<int?>("Customer_id")
-                        .HasColumnType("int");
 
                     b.Property<string>("ExpirationDate")
                         .HasColumnType("nvarchar(5)");
@@ -204,7 +218,7 @@ namespace HotelApp.Migrations
 
                     b.HasKey("Payment_id");
 
-                    b.HasIndex("Customer_id");
+                    b.HasIndex("Booking_id");
 
                     b.ToTable("Payments");
                 });
@@ -270,10 +284,6 @@ namespace HotelApp.Migrations
 
                     b.HasKey("Room_id");
 
-                    b.HasIndex("BookingId")
-                        .IsUnique()
-                        .HasFilter("[BookingId] IS NOT NULL");
-
                     b.HasIndex("HotelId");
 
                     b.ToTable("Rooms");
@@ -311,10 +321,23 @@ namespace HotelApp.Migrations
                 {
                     b.HasOne("HotelApp.Models.LoggedInUser", "LoggedInUser")
                         .WithMany("Bookings")
-                        .HasForeignKey("Customer_id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("LoggedInUserId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("HotelApp.Models.Payment", "Payment")
+                        .WithOne()
+                        .HasForeignKey("HotelApp.Models.Booking", "PaymentId");
+
+                    b.HasOne("HotelApp.Models.Room", "Room")
+                        .WithOne("Booking")
+                        .HasForeignKey("HotelApp.Models.Booking", "RoomId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("LoggedInUser");
+
+                    b.Navigation("Payment");
+
+                    b.Navigation("Room");
                 });
 
             modelBuilder.Entity("HotelApp.Models.HotelImage", b =>
@@ -322,7 +345,7 @@ namespace HotelApp.Migrations
                     b.HasOne("HotelApp.Models.Hotel", "Hotel")
                         .WithMany("images")
                         .HasForeignKey("Hotel_id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Hotel");
                 });
@@ -331,19 +354,19 @@ namespace HotelApp.Migrations
                 {
                     b.HasOne("HotelApp.Models.Hotel", "Hotel")
                         .WithMany("Employees")
-                        .HasForeignKey("HotelId");
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Hotel");
                 });
 
             modelBuilder.Entity("HotelApp.Models.Payment", b =>
                 {
-                    b.HasOne("HotelApp.Models.LoggedInUser", "LoggedInUser")
-                        .WithMany("Payments")
-                        .HasForeignKey("Customer_id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("HotelApp.Models.Booking", "Booking")
+                        .WithMany()
+                        .HasForeignKey("Booking_id");
 
-                    b.Navigation("LoggedInUser");
+                    b.Navigation("Booking");
                 });
 
             modelBuilder.Entity("HotelApp.Models.Rate", b =>
@@ -351,12 +374,12 @@ namespace HotelApp.Migrations
                     b.HasOne("HotelApp.Models.Hotel", "Hotel")
                         .WithMany("Rates")
                         .HasForeignKey("HotelId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("HotelApp.Models.LoggedInUser", "LoggedInUser")
                         .WithMany("Rates")
                         .HasForeignKey("LoggedInUserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Hotel");
 
@@ -365,17 +388,10 @@ namespace HotelApp.Migrations
 
             modelBuilder.Entity("HotelApp.Models.Room", b =>
                 {
-                    b.HasOne("HotelApp.Models.Booking", "Booking")
-                        .WithOne("Room")
-                        .HasForeignKey("HotelApp.Models.Room", "BookingId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("HotelApp.Models.Hotel", "Hotel")
                         .WithMany("Rooms")
                         .HasForeignKey("HotelId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Booking");
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Hotel");
                 });
@@ -385,13 +401,8 @@ namespace HotelApp.Migrations
                     b.HasOne("HotelApp.Models.Room", "Room")
                         .WithMany("images")
                         .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
 
-                    b.Navigation("Room");
-                });
-
-            modelBuilder.Entity("HotelApp.Models.Booking", b =>
-                {
                     b.Navigation("Room");
                 });
 
@@ -410,13 +421,13 @@ namespace HotelApp.Migrations
                 {
                     b.Navigation("Bookings");
 
-                    b.Navigation("Payments");
-
                     b.Navigation("Rates");
                 });
 
             modelBuilder.Entity("HotelApp.Models.Room", b =>
                 {
+                    b.Navigation("Booking");
+
                     b.Navigation("images");
                 });
 #pragma warning restore 612, 618

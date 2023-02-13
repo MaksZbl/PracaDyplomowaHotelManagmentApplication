@@ -115,6 +115,7 @@ namespace HotelApp
             app.UseAuthentication();
 
             app.UseAuthorization();
+            app.UseStaticFiles();
             
 
             app.UseEndpoints(endpoints =>

@@ -56,13 +56,15 @@ namespace HotelApp.Controllers
         private LoggedInUser CreateUser(LoggedInUser user)
         {
             var context = new ValidationContext(user);
-            var users = _context.Users.Where(x=>x.UserName == user.UserName && x.EmailAdress == user.EmailAdress && x.Mobile == user.Mobile);
+            var userFromDb = _context.Users.FirstOrDefault(x=>x.UserName == user.UserName && x.EmailAdress == user.EmailAdress && x.Mobile == user.Mobile);
             var results = new List<ValidationResult>();
-            if (!Validator.TryValidateObject(user, context, results, true) || users != null)
+            
+            if (!Validator.TryValidateObject(user, context, results, true) && userFromDb != null)
             {
                 return null;
             }
-            else
+
+            
                 return user;
         }
     }

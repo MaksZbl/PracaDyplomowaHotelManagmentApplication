@@ -19,9 +19,8 @@ namespace HotelApp.Models
         public DateTime PaymentDate { get; set; }
         [Column(TypeName = "nvarchar(3)")]
         public string SecurityCode { get; set; }
-        public virtual LoggedInUser LoggedInUser { get; set; }
-        [ForeignKey("LoggedInUser")]
-        public int? Customer_id { get; set; }
-
+        public virtual Booking Booking { get; set; }
+        [ForeignKey("Booking")]
+        public int? Booking_id { get; set; }
     }
 }

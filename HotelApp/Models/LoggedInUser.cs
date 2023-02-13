@@ -9,6 +9,7 @@ namespace HotelApp.Models
         [Required]
         [StringLength(20, MinimumLength = 5)]
         public string UserName { get; set; }
+        [Required]
         [DataType(DataType.Password)]
         [StringLength(100, ErrorMessage = "{0} powinno zawierać min {2} i max {1}", MinimumLength = 8)]
         public string Password { get; set; }
@@ -25,7 +26,6 @@ namespace HotelApp.Models
         [Required]
         [StringLength(20, MinimumLength = 5)]
         public string Mobile { get; set; }
-        public virtual List<Payment> Payments { get; set; }
         public virtual List<Booking> Bookings { get; set; }
         public virtual List<Rate> Rates { get; set; }
     }

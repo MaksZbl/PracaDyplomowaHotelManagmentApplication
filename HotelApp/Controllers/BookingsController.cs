@@ -23,7 +23,7 @@ namespace HotelApp.Controllers
             _context = context;
         }
         [HttpGet]
-        [Authorize(Roles = "Admin, LoggedInUser")]
+        [Authorize(Roles = "Admin, LoggedInUser, Employee")]
         public async Task<ActionResult<IEnumerable<Booking>>> GetBookings()
         {
             try
@@ -42,7 +42,7 @@ namespace HotelApp.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin, LoggedInUser")]
+        [Authorize(Roles = "Admin, LoggedInUser, Employee")]
         public async Task<ActionResult<Booking>> GetBooking(int id)
         {
             try
@@ -65,24 +65,24 @@ namespace HotelApp.Controllers
             {
                 var currentUser = GetCurrentUser();
                 var bookFromDb = _context.Bookings.FirstOrDefault(x => x.Booking_id == id);
-                if (bookFromDb != null)
-                {
-                    bookFromDb.Type = booking.Type;
-                    bookFromDb.Title = booking.Title;
-                    bookFromDb.Description = booking.Description;
-                    bookFromDb.StartDate = booking.StartDate;
-                    bookFromDb.EndDate = booking.EndDate;
-                    bookFromDb.Customer_id = booking.Customer_id;
-                    _context.Bookings.Update(bookFromDb);
-                    await _context.SaveChangesAsync();
-                    return Ok();
-                }
-                else
+
+                if (bookFromDb == null)
                 {
                     _context.Bookings.Add(booking);
                     await _context.SaveChangesAsync();
                     return Ok();
                 }
+
+                bookFromDb.Type = booking.Type;
+                bookFromDb.Title = booking.Title;
+                bookFromDb.Description = booking.Description;
+                bookFromDb.StartDate = booking.StartDate;
+                bookFromDb.EndDate = booking.EndDate;
+                bookFromDb.LoggedInUserId = booking.LoggedInUserId;
+                _context.Bookings.Update(bookFromDb);
+                await _context.SaveChangesAsync();
+
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -90,32 +90,34 @@ namespace HotelApp.Controllers
             }
         }
         [HttpPost]
-        [Authorize(Roles = "Admin, LoggedInUser")]
+        [Authorize(Roles = "Admin, LoggedInUser, Employee")]
         public async Task<ActionResult<Booking>> PostBooking(Booking booking)
         {
             try
             {
-                var checkRoom = _context.Rooms.FirstOrDefault(x=>x.IsFree==true && x.Hotel.Hotel_id == int.Parse(booking.Description) && x.Type == booking.Type  );
+                var checkRoom = _context.Rooms.FirstOrDefault(x=>x.IsFree==true && x.Hotel.Hotel_id == int.Parse(booking.Description) && x.Type == booking.Type);
                 var currentUser = GetCurrentUser();
-                if (checkRoom.IsFree == true)
-                {
-                    checkRoom.IsFree = false;
-                    if(currentUser.RoleValue == "LoggedInUser" || currentUser.RoleValue == "Employee")
-                    {
-                        var checkUser = _context.Users.FirstOrDefault(x => x.UserName == currentUser.UserName);
-                        checkRoom.BookingId = booking.Booking_id;
-                        booking.RoomId = checkRoom.Room_id;
-                        booking.Customer_id = checkUser.User_id;
-                        booking.Title = $"Room reservation #{booking.Booking_id}";
-                        booking.Description = $"Room reservation #{booking.Booking_id}";
-                    }
-                    _context.Bookings.Add(booking);
-                    await _context.SaveChangesAsync();
-                }
-                else
+
+                if (checkRoom == null || checkRoom.IsFree != true)
                 {
                     return NotFound();
                 }
+           
+                checkRoom.IsFree = false;
+                if(currentUser.RoleValue == "LoggedInUser" || currentUser.RoleValue == "Employee")
+                {
+                    var checkUser = _context.Users.FirstOrDefault(x => x.UserName == currentUser.UserName);
+                    booking.RoomId = checkRoom.Room_id;
+                    booking.LoggedInUserId = checkUser.User_id;
+                }
+                _context.Bookings.Add(booking);
+                await _context.SaveChangesAsync();
+                var lastId = _context.Bookings.Max(x => x.Booking_id);
+                var lastBook = _context.Bookings.FirstOrDefault(x => x.Booking_id == lastId);
+                checkRoom.BookingId = lastBook.Booking_id;
+                lastBook.Title = $"Room reservation #{booking.Booking_id}";
+                lastBook.Description = $"Room reservation #{booking.Booking_id}";
+                await _context.SaveChangesAsync();
                 
                 return Ok();
             }

@@ -29,50 +29,49 @@ namespace HotelApp.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
-            modelBuilder.Entity<Hotel>()
-                .HasMany(c => c.Rooms)
-                .WithOne(x => x.Hotel)
-                .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Hotel>()
-                .HasMany(c => c.images)
-                .WithOne(x => x.Hotel)
-                .OnDelete(DeleteBehavior.Cascade);
-
+            //Hotel
             modelBuilder.Entity<Room>()
-                .HasMany(c => c.images)
-                .WithOne(x => x.Room)
-                .OnDelete(DeleteBehavior.Cascade);
+                 .HasOne(h => h.Hotel)
+                 .WithMany(r => r.Rooms)
+                 .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Rate>()
+                 .HasOne(h => h.Hotel)
+                 .WithMany(r => r.Rates)
+                 .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<LoggedInUser>()
-                .HasMany(c => c.Bookings)
-                .WithOne(x => x.LoggedInUser)
-                .OnDelete(DeleteBehavior.Cascade);
+                 .HasOne(h => h.Hotel)
+                 .WithMany(l => l.Employees)
+                 .OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<LoggedInUser>()
-                .HasMany(c => c.Payments)
-                .WithOne(x => x.LoggedInUser)
-                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<HotelImage>()
+                 .HasOne(h => h.Hotel)
+                 .WithMany(i => i.images)
+                 .OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<Room>()
-                .HasOne(c => c.Booking)
-                .WithOne(x => x.Room)
-                .OnDelete(DeleteBehavior.Cascade);
+            //Room
+            modelBuilder.Entity<Booking>()
+                .HasOne(r => r.Room)
+                .WithOne(b => b.Booking)
+                .OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<LoggedInUser>()
-                .HasMany(c => c.Rates)
-                .WithOne(x => x.LoggedInUser)
-                .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Hotel>()
-                .HasMany(c => c.Rates)
-                .WithOne(x => x.Hotel)
-    .           OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<RoomImage>()
+                .HasOne(r => r.Room)
+                .WithMany(r => r.images)
+                .OnDelete(DeleteBehavior.SetNull);
 
+            //LoggedInUser
+            modelBuilder.Entity<Booking>()
+                .HasOne(l => l.LoggedInUser)
+                .WithMany(b => b.Bookings)
+                .OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<Hotel>()
-                .HasMany(c => c.Employees)
-                .WithOne(x => x.Hotel);
+            modelBuilder.Entity<Rate>()
+                .HasOne(l => l.LoggedInUser)
+                .WithMany(p => p.Rates)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }
