@@ -89,5 +89,15 @@
                 </div>
             </form>
         </div>
+        <div class="paymentInfo col-md-6">
+            <div style="background-color: rgb(68, 228, 201); margin-top: 150px; padding: 20px;" class="jumbotron">
+                <h1 class="display-4 text-center">Informacja odnośnie płatności</h1>
+                <div class="paymentInfo_content" style="color: #fff;">
+                    <h1 *ngIf="parseToNumber(daysDifference) === 1">Rezerwacja na {{daysDifference}} noc </h1>
+                    <h1 *ngIf="parseToNumber(daysDifference) > 1">Rezerwacja na {{daysDifference}} nocy </h1>
+                    <h1>Do zapłaty: {{parseToNumber(daysDifference) * price}} PLN</h1>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

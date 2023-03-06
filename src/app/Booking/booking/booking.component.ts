@@ -7,6 +7,7 @@ import { Booking } from 'src/app/shared/booking.model';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
+import { faBed } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -26,6 +27,10 @@ export class BookingComponent implements OnInit {
   options: string[] = ['2-person', 'Family 5-person', 'Apartments 4-person'];
   filteredOptions: Observable<string[]>;
   invalidDateOrType: boolean = false;
+  faBedIcon = faBed;
+  countOfTwoPerson: number = 0;
+  countOfFourPerson: number = 0;
+  countOfFivePerson: number = 0;
 
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
@@ -81,7 +86,6 @@ export class BookingComponent implements OnInit {
     });
     var timeDif = Math.abs(Number((this.range.controls.end.value)?.getTime()) - Number((this.range.controls.start.value)?.getTime()));
     var diffDays = Math.ceil(timeDif / (1000 * 3600 * 24));
-    console.log(diffDays)
     this.dialog.closeAll();
     this.router.navigate(["myBookings"]);
   }
@@ -92,6 +96,21 @@ export class BookingComponent implements OnInit {
       startWith(''),
       map(value => this.filterAutocomplete(value || '')),
     );
+    var str = this.checkCurrentHotel();
+    this.http.get(`${this.baseUrlHotel}/${str}`).subscribe(response => {
+      this.hotel = response;
+      console.log(this.hotel)
+      for (let index = 0; index < this.hotel[0].rooms.length; index++) {
+        if (this.hotel[0].rooms[index].type == "2-person" && this.hotel[0].rooms[index].isFree === true) {
+          this.countOfTwoPerson++;
+        }
+        if (this.hotel[0].rooms[index].type == "Apartments 4-person" && this.hotel[0].rooms[index].isFree === true) {
+          this.countOfFourPerson++;
+        }
+        if (this.hotel[0].rooms[index].type == "Family 5-person" && this.hotel[0].rooms[index].isFree === true) {
+          this.countOfFivePerson++;
+        }
+      }
+    });
   }
-
 }

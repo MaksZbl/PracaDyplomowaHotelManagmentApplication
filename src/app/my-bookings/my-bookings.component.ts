@@ -23,8 +23,17 @@ export class MyBookingsComponent implements OnInit {
     return moment(arg).format("LL");
   }
 
-  setBookingId(id: number) {
+  setBookingId(id: number, startDate: any, endDate: any, price: any) {
+    const sD = new Date(startDate);
+    const eD = new Date(endDate);
+    console.log(sD)
+    console.log(eD)
+    const diffTime = Math.abs(eD.getDate() - sD.getDate());
+    localStorage.setItem("difDays", diffTime.toString());
+    console.log(diffTime)
+    console.log(diffTime + " days");
     localStorage.setItem("booking_id", id.toString());
+    localStorage.setItem("price", price);
   }
 
 

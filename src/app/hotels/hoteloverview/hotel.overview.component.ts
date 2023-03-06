@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { RateService } from 'src/app/shared/rate.service';
+import { Rate } from 'src/app/shared/rate.model';
 
 @Component({
   selector: 'app-hotel-piotrkow',
@@ -26,9 +27,11 @@ export class HotelOverviewComponent implements OnInit {
   currentRate: number = 0;
   rateOfHotel: any;
   type: number;
+  countofReviews: number = 0;
   buttonServicesText: string = "Zobacz wszystkie usługi";
   comfortableServices: boolean = false; luxuryServices: boolean = false; spaServices: boolean = false;
   jwtHelper: JwtHelperService = new JwtHelperService();
+  rate: Rate = new Rate();
   readonly baseUrlHotel = `https://localhost:5001/api/Hotels`;
 
   CheckHotel() {
@@ -102,6 +105,24 @@ export class HotelOverviewComponent implements OnInit {
     return null;
   }
 
+  clickRate() {
+    setTimeout(
+      () => {
+        this.rateOfHotel = this.rateService.getAvRate(this.hotel[0].hotel_id).subscribe((res: any) => {
+          this.currentRate = res.avRate;
+          this.countofReviews = res.count;
+        });
+      }, 1000
+    )
+    this.rate.value = this.currentRate;
+    this.rate.hotelId = this.hotel[0].hotel_id;
+    console.log(this.rate.hotelId);
+    this.rate.value = this.currentRate;
+    console.log(this.rate.value);
+    this.rateService.postRate(this.rate, sessionStorage.getItem("username") || "");
+
+  }
+
   ngOnInit(): void {
     const str = this.CheckHotel();
     console.log(str);
@@ -115,7 +136,7 @@ export class HotelOverviewComponent implements OnInit {
       this.checkType();
       this.rateOfHotel = this.rateService.getAvRate(this.hotel[0].hotel_id).subscribe((res: any) => {
         this.currentRate = res.avRate;
-        console.log(this.currentRate)
+        this.countofReviews = res.count;
       });
     });
   }

@@ -11,9 +11,18 @@ import { Router } from '@angular/router';
 })
 export class PaymentDetailComponent implements OnInit {
 
+  daysDifference: any;
+  price: any;
+
   constructor(public service: PaymentService, public toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
+    this.daysDifference = localStorage.getItem("difDays");
+    this.price = localStorage.getItem("price");
+  }
+
+  parseToNumber(arg: string) {
+    return Number(arg);
   }
 
   addPayment(form: NgForm) {

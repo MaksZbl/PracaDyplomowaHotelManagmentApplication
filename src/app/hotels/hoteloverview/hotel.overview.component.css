@@ -376,3 +376,7 @@
 .btn-viewMore:hover {
     background: rgb(204, 203, 203);
 }
+
+.viewMore_suptitle {
+    font-size: 20px;
+}

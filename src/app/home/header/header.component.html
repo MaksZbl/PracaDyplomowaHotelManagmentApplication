@@ -1,6 +1,6 @@
 <header class="header">
-    <div class="header_inner">
-        <div class="header_logo_link">
+    <div class="header_inner raw col-md-12">
+        <div class="header_logo_link raw">
             <a routerLink="/">
                 <img class="header_logo_link_img col-md-4" src="/assets/Logo/MemoriesPalaceLogo.png" alt="HotelLogo">
             </a>
@@ -23,13 +23,9 @@
                         <li class="list-group-item">Moje rezerwacje</li>
                         <fa-icon [icon]="faBookIcon" style="color:red; display: block; padding: 5px; "></fa-icon>
                     </a>
-                    <a href="/">
+                    <a routerLink="/myPayments">
                         <li class="list-group-item">Moje płatnośći</li>
                         <fa-icon [icon]="faMoneyIcon" style="color:green; display: block; padding: 5px; "></fa-icon>
-                    </a>
-                    <a href="/">
-                        <li class="list-group-item">Oferty</li>
-                        <fa-icon [icon]="faTagIcon" style="color:yellow; display: block; padding: 5px; "></fa-icon>
                     </a>
                     <a (click)="LogOut()" href="/">
                         <li class="list-group-item">Log out</li>
@@ -77,18 +73,48 @@
             <a class="nav_link" href="/">Nasze oferty</a>
             <a class="nav_link" href="/">COŚ O NAS</a>
         </nav>
+        <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger"
+            [cdkConnectedOverlayOpen]="displayBurgerMenu == true" (overlayOutsideClick)="displayBurgerMenu = false"
+            [cdkConnectedOverlayOffsetY]="0" [cdkConnectedOverlayOffsetX]="100">
+            <nav class="burger_menu">
+                <a class="nav_link" routerLink="/hotels">HOTELE</a>
+                <a class="nav_link" href="/">DZIAŁANIA W MEMORIES PALACE</a>
+                <a class="nav_link" href="/">Nasze oferty</a>
+                <a class="nav_link" href="/">COŚ O NAS</a>
+                <button class="logIn" (click)="DisplayOverlay()" cdkOverlayOrigin #trigger='cdkOverlayOrigin'
+                    [disabled]="AuthorizeUser">
+                    Zaloguj się
+                </button>
+            </nav>
+        </ng-template>
 
-        <button ejs-button class="btn btn-light btn-user" (click)="DisplayOverlay()" type="button" cdkOverlayOrigin
-            #trigger='cdkOverlayOrigin' [disabled]="AuthorizeUser">
-            <img class="header_icon" src="/assets/Icons/user-32.png" alt="User-avatar">
-        </button>
+        <nav class="navbar navbar-dark bg-transparent">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" (click)="DisplayBurgerMenu()">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </nav>
 
-        <button ejs-button class="btn btn-light btn-cabinet" (click)="DisplayCabinetOverlay()" type="button"
-            cdkOverlayOrigin #trigger='cdkOverlayOrigin' [disabled]="!AuthorizeUser">
-            <img class="header_icon" src="/assets/Icons/guest-16.png" alt="User-avatar">
-            Mój profil
-        </button>
 
+        <div class="raw">
+            <div class="col-md-12">
+                <button ejs-button class="btn btn-light btn-user" (click)="DisplayOverlay()" type="button"
+                    cdkOverlayOrigin #trigger='cdkOverlayOrigin' [disabled]="AuthorizeUser">
+                    <img class="header_icon" src="/assets/Icons/user-32.png" alt="User-avatar">
+                </button>
+            </div>
+        </div>
+
+        <div class="raw">
+            <div class="col-md-12">
+                <button ejs-button class="btn btn-light btn-cabinet" (click)="DisplayCabinetOverlay()" type="button"
+                    cdkOverlayOrigin #trigger='cdkOverlayOrigin' [disabled]="!AuthorizeUser">
+                    <img class="header_icon" src="/assets/Icons/guest-16.png" alt="User-avatar">
+                    Mój profil
+                </button>
+            </div>
+        </div>
         <button type="button" class="btn btn-light btn-follow">
             Obserwuj nas
         </button>

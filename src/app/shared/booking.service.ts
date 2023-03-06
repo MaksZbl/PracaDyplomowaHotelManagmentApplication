@@ -13,11 +13,6 @@ export class BookingService {
 
   readonly baseUrl = '/api/Bookings';
 
-
-  checkDate(date: Date) {
-    console.log(typeof (date));
-  }
-
   postBooking(booking: Booking) {
 
     const httpOptions = {
@@ -38,7 +33,7 @@ export class BookingService {
       .subscribe(response => {
         this.toastr.success("Rezerwacja zakonczona, przejdż do swoich rezerwacji przy pomocy panelu użytkownika");
       }, err => {
-        this.toastr.error("Błąd rezerwacji, wystąpił problem")
+        this.toastr.error("Błąd rezerwacji, rezerwacja pokoju tego typu nie jest dostępna")
         console.log(err);
       })
   }

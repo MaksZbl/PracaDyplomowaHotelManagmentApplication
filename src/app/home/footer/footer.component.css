@@ -29,8 +29,8 @@ h1 {
 }
 
 @media (max-width: 575px) {
-    .header_logo_link_img {
-        max-width: 300px;
-        height: auto;
+    .footer_logo {
+        max-width: 8px;
+        padding: 0;
     }
 }

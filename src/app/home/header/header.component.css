@@ -34,8 +34,8 @@
 .header_inner {
     display: flex;
     justify-content: space-around;
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    height: auto;
     align-items: center;
     text-align: center;
 }
@@ -234,21 +234,55 @@ label {
     border: 1px solid #eec738;
 }
 
+.container-fluid {
+    margin: 0;
+    padding: 0;
+}
+
+.burger_menu {
+    display: block;
+
+    background-color: #000;
+    margin-top: 10px;
+    border-width: 3px;
+    border-style: solid;
+    border-image:
+        linear-gradient(to bottom,
+            rgba(0, 0, 0, 0),
+            #eec738,
+            rgba(0, 0, 0, 0)) 1 100%;
+}
+
+.burger_menu a {
+    display: block;
+    padding: 10px 0;
+}
+
+.navbar {
+    display: none;
+}
 
 @media (max-width: 990px) {
     .btn-user {
-        right: 100px;
+        margin-right: 50px;
+    }
+
+    .nav a {
+        font-size: 14px;
+    }
+
+    .btn-cabinet {
+        font-size: 12px;
+        width: 100px;
     }
 }
 
 @media (max-width: 770px) {
-    .nav {
-        display: none;
-    }
 
     .btn-user {
         max-width: 40px;
         max-height: 40px;
+        display: none;
     }
 
     .header_icon {
@@ -257,8 +291,17 @@ label {
     }
 
     .header_logo_link_img {
-        max-width: 300px;
+        width: 100%;
+        max-width: 200px;
         height: auto;
+    }
+
+    .navbar {
+        display: block;
+    }
+
+    .nav {
+        display: none;
     }
 
 }

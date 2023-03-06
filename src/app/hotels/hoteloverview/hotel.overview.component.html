@@ -42,8 +42,11 @@
                             </button>
                         </div>
                         <div class="hotel_rating">
-                            <ngb-rating [(rate)]="currentRate"></ngb-rating>
-                            <pre><b>{{currentRate}}/10</b></pre>
+                            <ngb-rating [(ngModel)]="currentRate" (click)="clickRate()"></ngb-rating>
+                            <span>
+                                <br><br><b>{{currentRate}}/10 z </b>
+                                <i>{{countofReviews}} opinii</i>
+                            </span>
                         </div>
                     </div>
                 </div>

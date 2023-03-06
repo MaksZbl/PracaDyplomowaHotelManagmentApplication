@@ -53,6 +53,7 @@ import { RegistrationService } from './shared/registration.service';
 import { HotelService } from './shared/hotel.service';
 import { PaymentService } from './shared/payment.service';
 import { RateService } from './shared/rate.service';
+import { MyPaymentsComponent } from './my-payments/my-payments.component';
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import { RateService } from './shared/rate.service';
     RegistrationComponent,
     MyBookingsComponent,
     PaymentDetailComponent,
+    MyPaymentsComponent,
   ],
   imports: [
     HttpClientModule,

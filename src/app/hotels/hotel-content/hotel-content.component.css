@@ -56,14 +56,15 @@ h1 {
     width: 100%;
     height: auto;
     border-radius: 20px;
+    background-color: black;
+    color: #fff;
     box-shadow: 3px 5px rgb(230, 228, 228);
     margin-bottom: 30px;
 }
 
 .hotel_adress {
     font-size: 16px;
-    background: aqua;
-    max-width: 340px;
+    background: linear-gradient(to right, #000, #eec738, #000);
     width: 100%;
     margin-top: 20px;
     border-radius: 50px;
@@ -120,4 +121,14 @@ h1 {
 .hotelsCards a:hover .hotelCard {
     box-shadow: 10px 10px rgb(180, 176, 176);
     transition: box-shadow 0.3s linear;
+}
+
+.hotel_content {
+    padding: 10px;
+    border-width: 3px;
+    border-style: solid;
+    border-image: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0),
+            #eec738,
+            rgba(0, 0, 0, 0)) 1 100%;
 }

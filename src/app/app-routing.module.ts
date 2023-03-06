@@ -9,6 +9,7 @@ import { RegistrationComponent } from './home/registration/registration.componen
 import { HotelOverviewComponent } from './hotels/hoteloverview/hotel.overview.component';
 import { HotelsComponent } from './hotels/hotels.component';
 import { MyBookingsComponent } from './my-bookings/my-bookings.component';
+import { MyPaymentsComponent } from './my-payments/my-payments.component';
 import { PaymentDetailComponent } from './payment-detail/payment-detail.component';
 
 const routes: Routes = [
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'hotels/MemoriesPalaceLuxuryResort&SpaGdynia/booking', component: BookingComponent, canActivate: [AuthPanelGuard] },
   { path: 'registration', component: RegistrationComponent },
   { path: 'myBookings', component: MyBookingsComponent, canActivate: [AuthPanelGuard] },
+  { path: 'myPayments', component: MyPaymentsComponent, canActivate: [AuthPanelGuard] },
   { path: 'paymentDetail', component: PaymentDetailComponent, canActivate: [AuthPanelGuard] }
 ];
 @NgModule({

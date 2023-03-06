@@ -31,6 +31,30 @@
             </mat-form-field>
         </form>
         <div *ngIf="invalidDateOrType" class="alert alert-danger">Invalid date or type</div>
+        <div class="cards-list">
+
+            <div class="card">
+                <div class="card_image"> <img src="\assets\img\Pokoje\bedroom-1285156_640.jpg" /> </div>
+                <div class="card_title title-white">
+                    <p>Dla dwóch osób</p>
+                    <p>Dostępnośc: {{countOfTwoPerson}}</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card_image"> <img src="\assets\img\Pokoje\room-4768554_640.jpg" /> </div>
+                <div class="card_title title-white">
+                    <p>Dla czterech osób</p>
+                    <p>Dostępnośc: {{countOfFourPerson}}</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card_image"> <img src="\assets\img\Pokoje\living-room-4809587_640.jpg" /> </div>
+                <div class="card_title title-white">
+                    <p>Dla pięciu osób</p>
+                    <p>Dostępnośc: {{countOfFivePerson}}</p>
+                </div>
+            </div>
+        </div>
         <button class="btn btn-primary" (click)="submitBookingForm()">Wyslij</button>
     </div>
 </div>

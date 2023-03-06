@@ -23,4 +23,15 @@ export class PaymentService {
     this.formData.booking_id = Number(localStorage.getItem("booking_id"));
     return this.http.post(this.baseUrl, this.formData, httpOptions);
   }
+
+  getPayments() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.getItem("jwt") || ""}`,
+      })
+    };
+
+    return this.http.get(this.baseUrl, httpOptions);
+  }
 }

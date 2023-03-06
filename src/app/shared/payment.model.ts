@@ -7,4 +7,5 @@ export class PaymentDetail {
     securityCode: string;
     customer_id: number;
     booking_id: number;
+    valueOfPayment: number;
 }

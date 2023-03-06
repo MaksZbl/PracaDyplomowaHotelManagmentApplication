@@ -24,7 +24,9 @@
                         <td>{{toMoment(booking.startDate)}}</td>
                         <td>{{toMoment(booking.endDate)}}</td>
                         <td *ngIf="booking.isPayed==false" style="color: red;">Nie zapłacone <br><a
-                                routerLink="/paymentDetail" (click)="setBookingId(booking.booking_id)">Zapłać teraz</a>
+                                routerLink="/paymentDetail"
+                                (click)="setBookingId(booking.booking_id, booking.startDate, booking.endDate, booking.room.rent)">Zapłać
+                                teraz</a>
                         </td>
                         <td *ngIf="booking.isPayed==true" style="color: green;">Zapłacone</td>
                     </tr>

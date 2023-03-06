@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit {
   username: string;
   password: string;
   type: string = "password";
+  displayBurgerMenu: boolean = false;
   faBookIcon = faBook; faMoneyIcon = faMoneyCheckAlt; faTagIcon = faTag; faArrowCircleRightIcon = faArrowCircleRight; faToolboxIcon = faToolbox; faEyeIcon = faEye;
 
   constructor(private router: Router, private http: HttpClient, public service: HotelService, public toastr: ToastrService) {
@@ -95,6 +96,10 @@ export class HeaderComponent implements OnInit {
 
   DisplayCabinetOverlay() {
     this.isDisplayCabinet = !this.isDisplayCabinet;
+  }
+
+  DisplayBurgerMenu() {
+    this.displayBurgerMenu = !this.displayBurgerMenu;
   }
 
   LogOut() {
