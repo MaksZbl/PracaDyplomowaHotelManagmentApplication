@@ -216,6 +216,9 @@ namespace HotelApp.Migrations
                     b.Property<string>("SecurityCode")
                         .HasColumnType("nvarchar(3)");
 
+                    b.Property<decimal>("ValueOfPayment")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("Payment_id");
 
                     b.HasIndex("Booking_id");

@@ -23,10 +23,23 @@ namespace HotelApp.Controllers
         }
 
         // GET: api/Payments
+        [Authorize(Roles = "Admin, LoggedInUser, Manager, Employee")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Payment>>> GetPayments()
         {
-            return await _context.Payments.ToListAsync();
+            try
+            {
+                var currentUser = GetCurrentUser();
+                if (currentUser.RoleValue != "Admin")
+                {
+                    return Ok(_context.Payments.Where(x => x.Booking.LoggedInUser.UserName == currentUser.UserName));
+                }
+                return Ok(await _context.Bookings.ToListAsync());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // GET: api/Payments/5

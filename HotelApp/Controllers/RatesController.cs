@@ -36,17 +36,17 @@ namespace HotelApp.Controllers
                     return NotFound("Taki hotel nie istnieje");
                 }
 
-                var listOfGrades = await _context.Rates.ToListAsync();
+                var listOfGrades = _context.Rates.Where(x => x.HotelId == hotelId);
                 var gradeValue = 0.0;
                 foreach(var grade in listOfGrades)
                 {
                     gradeValue += grade.value;
                 }
 
-                var averageRate = gradeValue / listOfGrades.Count;
+                var averageRate = gradeValue / listOfGrades.Count();
                 
 
-                return Ok(new { avRate = averageRate });
+                return Ok(new { avRate = averageRate, count = listOfGrades.Count() });
             }
             catch (Exception ex)
             {
@@ -98,11 +98,17 @@ namespace HotelApp.Controllers
                     throw new ArgumentNullException(nameof(rate));
                 }
                 var currentUser = GetCurrentUser();
-                var currentRate = await _context.Rates.FirstOrDefaultAsync(x => x.LoggedInUserId == rate.LoggedInUserId);
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == currentUser.UserName);
+                if(user == null)
+                {
+                    return NotFound("User not found");
+                }
+                rate.LoggedInUserId = user.User_id;
+                var currentRate = await _context.Rates.FirstOrDefaultAsync(x => x.LoggedInUserId == rate.LoggedInUserId && x.HotelId == rate.HotelId);
                 if(currentRate == null)
                 {
                     _context.Rates.Add(rate);
-                    
+                    await _context.SaveChangesAsync();
                     return CreatedAtAction("GetRate", new { id = rate.RateId }, rate);
                 }
 
