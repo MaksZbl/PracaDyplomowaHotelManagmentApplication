@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "UC6DWO2e7MAqWKHJmaUqCzJTxCypsJ376qMNAoyzclmpi7+32/sIompJnEPmGPcqQFuxMP3CU/ZqlBjdNXomRQ==",
+  "dgSpecHash": "betT2vhYcd1rlQXliY1TlWTO50UZvl2T85/+L3LUrEfR5C/LjrL9elmk6i8AiFrZcdcqzam+XZ5Gfz3lbkQMsw==",
   "success": true,
   "projectFilePath": "D:\\Study\\7semestr\\PracaDyplomowa\\APIHotelService\\HotelApp\\HotelApp\\HotelApp.csproj",
   "expectedPackageFiles": [
@@ -9,7 +9,7 @@
     "C:\\Users\\Stark\\.nuget\\packages\\azure.security.keyvault.certificates\\4.1.0\\azure.security.keyvault.certificates.4.1.0.nupkg.sha512",
     "C:\\Users\\Stark\\.nuget\\packages\\azure.security.keyvault.secrets\\4.1.0\\azure.security.keyvault.secrets.4.1.0.nupkg.sha512",
     "C:\\Users\\Stark\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",
-    "C:\\Users\\Stark\\.nuget\\packages\\coreadmin\\1.8.0\\coreadmin.1.8.0.nupkg.sha512",
+    "C:\\Users\\Stark\\.nuget\\packages\\coreadmin\\1.7.0\\coreadmin.1.7.0.nupkg.sha512",
     "C:\\Users\\Stark\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Stark\\.nuget\\packages\\microsoft.aspnetcore.antiforgery\\1.1.3\\microsoft.aspnetcore.antiforgery.1.1.3.nupkg.sha512",
     "C:\\Users\\Stark\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.3\\microsoft.aspnetcore.authentication.jwtbearer.5.0.3.nupkg.sha512",

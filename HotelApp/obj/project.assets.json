@@ -109,7 +109,7 @@
           }
         }
       },
-      "CoreAdmin/1.8.0": {
+      "CoreAdmin/1.7.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "3.1.4",
@@ -4161,10 +4161,10 @@
         "readme.txt"
       ]
     },
-    "CoreAdmin/1.8.0": {
-      "sha512": "1/Tdedw9IaPhmq7XgIoJtN8I2u6Um5ARpudZ33qXXRSwTxAV/W5EtzD4K5w/4lIyzAvMN8gcgfiJtuQclWtwVg==",
+    "CoreAdmin/1.7.0": {
+      "sha512": "8L+CJ4fETK0OU8skZL0soBDl4vLI0hLoPtU3V7+cab13uoDNAERKZ/JzUAFpOtj2GnyBdfuIiKI6cOgq/iD2Tw==",
       "type": "package",
-      "path": "coreadmin/1.8.0",
+      "path": "coreadmin/1.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4172,7 +4172,7 @@
         "build/Microsoft.AspNetCore.StaticWebAssets.props",
         "buildMultiTargeting/CoreAdmin.props",
         "buildTransitive/CoreAdmin.props",
-        "coreadmin.1.8.0.nupkg.sha512",
+        "coreadmin.1.7.0.nupkg.sha512",
         "coreadmin.nuspec",
         "lib/net5.0/DotNetEd.CoreAdmin.Views.dll",
         "lib/net5.0/DotNetEd.CoreAdmin.dll",
@@ -4201,6 +4201,7 @@
         "staticwebassets/js/jquery.min.js",
         "staticwebassets/js/jquery.min.map",
         "staticwebassets/js/jquery.validate.js",
+        "staticwebassets/js/jquery.validate.min.js",
         "staticwebassets/js/jquery.validate.unobtrusive.js",
         "staticwebassets/js/jquery.validate.unobtrusive.min.js",
         "staticwebassets/js/mvc-grid/mvc-grid.js",
@@ -11246,7 +11247,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "CoreAdmin >= 1.8.0",
+      "CoreAdmin >= 1.7.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 5.0.3",
       "Microsoft.AspNetCore.Authentication.OpenIdConnect >= 5.0.2",
       "Microsoft.AspNetCore.Cors >= 2.2.0",
@@ -11302,7 +11303,7 @@
         "dependencies": {
           "CoreAdmin": {
             "target": "Package",
-            "version": "[1.8.0, )"
+            "version": "[1.7.0, )"
           },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",

@@ -90,7 +90,7 @@ namespace HotelApp.Controllers
             }
         }
         [HttpPost]
-        [Authorize(Roles = "Admin, LoggedInUser, Employee")]
+        [Authorize(Roles = "Admin, LoggedInUser, Employee, Manager")]
         public async Task<ActionResult<Booking>> PostBooking(Booking booking)
         {
             try
@@ -129,18 +129,30 @@ namespace HotelApp.Controllers
 
         // DELETE: api/Bookings/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin, LoggedInUser")]
+        [Authorize(Roles = "Admin, LoggedInUser, Employee, Manager")]
         public async Task<IActionResult> DeleteBooking(int id)
         {
             try
             {
                 var currentUser = GetCurrentUser();
                 var book = await _context.Bookings.FirstOrDefaultAsync(x => x.Booking_id == id);
-                var checkRoom = _context.Rooms.FirstOrDefault(x => x.Room_id == book.RoomId);
-                checkRoom.IsFree = true;
-                _context.Bookings.Remove(book);
-                await _context.SaveChangesAsync();
-                return Ok();
+                var checkRoom = await _context.Rooms.FirstOrDefaultAsync(x => x.Room_id == book.RoomId);
+                var payment = await _context.Payments.FirstOrDefaultAsync(x => x.Payment_id == book.PaymentId);
+                if(book != null && checkRoom != null)
+                {
+                    checkRoom.IsFree = true;
+                    checkRoom.BookingId = null;
+                    book.PaymentId = null;
+                    await _context.SaveChangesAsync();
+                    if(payment != null)
+                    {
+                        _context.Payments.Remove(payment);
+                    }
+                    _context.Bookings.Remove(book);
+                    await _context.SaveChangesAsync();
+                    return Ok();
+                }
+                return NoContent();
             }
             catch (Exception ex)
             {

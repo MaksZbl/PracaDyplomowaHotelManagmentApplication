@@ -295,9 +295,9 @@ D:\Study\7semestr\PracaDyplomowa\APIHotelService\HotelApp\HotelApp\obj\Debug\net
 D:\Study\7semestr\PracaDyplomowa\APIHotelService\HotelApp\HotelApp\bin\Debug\net5.0\HotelApp.StaticWebAssets.xml
 D:\Study\7semestr\PracaDyplomowa\APIHotelService\HotelApp\HotelApp\bin\Debug\net5.0\DotNetEd.CoreAdmin.Views.dll
 D:\Study\7semestr\PracaDyplomowa\APIHotelService\HotelApp\HotelApp\bin\Debug\net5.0\DotNetEd.CoreAdmin.dll
+D:\Study\7semestr\PracaDyplomowa\APIHotelService\HotelApp\HotelApp\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.Razor.Host.dll
 D:\Study\7semestr\PracaDyplomowa\APIHotelService\HotelApp\HotelApp\bin\Debug\net5.0\Microsoft.DotNet.PlatformAbstractions.dll
 D:\Study\7semestr\PracaDyplomowa\APIHotelService\HotelApp\HotelApp\bin\Debug\net5.0\Microsoft.Extensions.DependencyModel.dll
 D:\Study\7semestr\PracaDyplomowa\APIHotelService\HotelApp\HotelApp\bin\Debug\net5.0\Microsoft.Extensions.PlatformAbstractions.dll
 D:\Study\7semestr\PracaDyplomowa\APIHotelService\HotelApp\HotelApp\bin\Debug\net5.0\Mvc.Grid.Core.dll
 D:\Study\7semestr\PracaDyplomowa\APIHotelService\HotelApp\HotelApp\obj\Debug\net5.0\staticwebassets\HotelApp.StaticWebAssets.xml
-D:\Study\7semestr\PracaDyplomowa\APIHotelService\HotelApp\HotelApp\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.Razor.Host.dll

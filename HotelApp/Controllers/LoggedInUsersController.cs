@@ -26,7 +26,7 @@ namespace HotelApp.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Manager")]
         public async Task<ActionResult<IEnumerable<LoggedInUser>>> GetUsers()
         {
             try
@@ -41,7 +41,7 @@ namespace HotelApp.Controllers
         }
 
         [HttpGet("{userName}")]
-        [Authorize(Roles = "Admin,Employee")]
+        [Authorize(Roles = "Admin,Employee,Manager")]
         public async Task<ActionResult<LoggedInUser>> GetLoggedInUser(string userName)
         {
             try
@@ -56,7 +56,7 @@ namespace HotelApp.Controllers
             }
         }
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Manager")]
         public async Task<IActionResult> PutLoggedInUser(int id, LoggedInUser loggedInUser)
         {
             try
@@ -87,7 +87,7 @@ namespace HotelApp.Controllers
             }
         }
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Manager")]
         public async Task<ActionResult<LoggedInUser>> PostLoggedInUser(LoggedInUser loggedInUser)
         {
             try
@@ -104,7 +104,7 @@ namespace HotelApp.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Manager")]
         public async Task<IActionResult> DeleteLoggedInUser(int id)
         {
             try

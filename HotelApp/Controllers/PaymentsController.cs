@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using HotelApp.EF;
 using HotelApp.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace HotelApp.Controllers
 {
@@ -32,6 +34,11 @@ namespace HotelApp.Controllers
                 var currentUser = GetCurrentUser();
                 if (currentUser.RoleValue != "Admin")
                 {
+                    if(currentUser.RoleValue == "Employee" || currentUser.RoleValue == "Manager")
+                    {
+                        var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == currentUser.UserName);
+                        return Ok(_context.Payments.Where(x => x.Booking.Room.HotelId == user.HotelId));
+                    }
                     return Ok(_context.Payments.Where(x => x.Booking.LoggedInUser.UserName == currentUser.UserName));
                 }
                 return Ok(await _context.Bookings.ToListAsync());

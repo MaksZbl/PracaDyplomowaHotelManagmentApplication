@@ -67,6 +67,7 @@ namespace HotelApp.Controllers
                     roomFromDb.Description = room.Description;
                     roomFromDb.Type = room.Type;
                     roomFromDb.IsFree = room.IsFree;
+                    roomFromDb.BookingId = room.BookingId;
                     _context.Rooms.Update(roomFromDb);
                     await _context.SaveChangesAsync();
                     return Ok();
