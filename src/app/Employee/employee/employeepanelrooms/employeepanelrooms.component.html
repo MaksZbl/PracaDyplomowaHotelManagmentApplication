@@ -6,16 +6,29 @@
         <nav class="employeeNav_content">
             <a class="nav_link" routerLink="/employeepanel"><fa-icon [icon]="faHomeIcon"></fa-icon> Home</a>
             <a class="nav_link" routerLink="/employeepanel/rooms"><fa-icon [icon]="faDoorIcon"></fa-icon> Pokoje</a>
+            <a class="nav_link" routerLink="/employeepanel/payments"><fa-icon [icon]="faDoorIcon"></fa-icon>
+                Płatności</a>
+            <a *ngIf="userR=='Manager' || userR=='Employee'" class="nav_link" routerLink="/employeepanel/users"><fa-icon
+                    [icon]="faUserIcon"></fa-icon>
+                Users</a>
         </nav>
     </div>
-    <div class="col-md-9 emloyeeHomePage">
+    <div class=" col-md-9 emloyeeHomePage">
         <div class="employeeHomePage_header">
-            <a routerLink="/">
-                <p>Strona główna Memories Palace</p>
-            </a>
+            <button class="btn btn-secondary" style="padding: 0px">
+                <a routerLink="/">
+                    <fa-icon [icon]="faHomeIcon"></fa-icon>
+                    Strona główna
+                </a>
+            </button>
+            <div class="userInfo" style="text-align: center;padding: 5px 30px 0 0; ">
+                <p style="font-size: 18px;">{{nameOfUser}} {{surnameOfUser}}</p>
+                <p style="font-size: 20px; color: yellow;">{{userR}}</p>
+            </div>
         </div>
         <div class="employeeHomePage_content">
             <h1 style="font-size: 20px;">{{userHotel}}</h1>
+            <h2 style="font-size: 18px; margin-left: 10px;">Pokoje</h2>
             <table class="table">
                 <thead>
                     <tr>
@@ -25,7 +38,12 @@
                         </th>
                         <th scope="col">Type</th>
                         <th scope="col">Dostępność</th>
+                        <th scope="col">Imie klienta</th>
+                        <th scope="col">Nazwisko klienta</th>
                         <th scope="col">Czy zapłacone</th>
+                        <th scope="col">Data zameldowania</th>
+                        <th scope="col">Data wymeldowania</th>
+                        <th>Czy ważna?</th>
                     </tr>
                 </thead>
                 <ng-template ngFor let-room [ngForOf]="roomsList">
@@ -42,12 +60,28 @@
                             <td *ngIf="room.isFree === false"
                                 (click)="EditRoomIsFree(room.room_id, room.description, room.number, room.type, room.isFree)"
                                 style="color: red; cursor: pointer;"><fa-icon [icon]="faExclamationIcon"></fa-icon></td>
+                            <td *ngIf="room.isFree === false">{{room.booking.loggedInUser.firstName}}</td>
+                            <td *ngIf="room.isFree === false">{{room.booking.loggedInUser.lastName}}</td>
                             <div *ngIf="room.booking != null">
                                 <td *ngIf="room.booking.isPayed === true" style="color: green;">Tak
                                 </td>
                                 <td *ngIf="room.booking.isPayed === false" style="color: red;">Nie
                                 </td>
                             </div>
+                            <td *ngIf="room.booking != null">
+                                {{toMoment(room.booking.startDate)}}
+                            </td>
+                            <td *ngIf="room.booking != null">
+                                {{toMoment(room.booking.endDate)}}
+                            </td>
+                            <td *ngIf="room.booking != null && ifNotClosed(room.booking.endDate) == true && room.booking.isPayed == true"
+                                style="background-color: rgb(113, 243, 113);"></td>
+                            <td *ngIf="(room.booking != null && room.booking.isPayed == false) || (room.booking != null && ifNotClosed(room.booking.endDate) == false)"
+                                style="background-color: rgb(243, 113, 113);"></td>
+                            <button *ngIf="room.booking != null" (click)="deleteReservation(room.booking.booking_id)"
+                                class="btn btn-primary"
+                                style="margin-left: 5px; background-color: red; border-color: red;">Usuń
+                                rezerwacje</button>
                         </tr>
                     </tbody>
                 </ng-template>

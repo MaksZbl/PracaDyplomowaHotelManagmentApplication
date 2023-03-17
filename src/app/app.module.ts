@@ -54,6 +54,8 @@ import { HotelService } from './shared/hotel.service';
 import { PaymentService } from './shared/payment.service';
 import { RateService } from './shared/rate.service';
 import { MyPaymentsComponent } from './my-payments/my-payments.component';
+import { EmployeepanelpaymentsComponent } from './Employee/employee/employeepanelpayments/employeepanelpayments.component';
+import { EmployeePanelUsersComponent } from './Employee/employee/employee-panel-users/employee-panel-users.component';
 
 
 @NgModule({
@@ -77,6 +79,8 @@ import { MyPaymentsComponent } from './my-payments/my-payments.component';
     MyBookingsComponent,
     PaymentDetailComponent,
     MyPaymentsComponent,
+    EmployeepanelpaymentsComponent,
+    EmployeePanelUsersComponent,
   ],
   imports: [
     HttpClientModule,

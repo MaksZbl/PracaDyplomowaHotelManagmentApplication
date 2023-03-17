@@ -31,15 +31,17 @@ export class BookingComponent implements OnInit {
   countOfTwoPerson: number = 0;
   countOfFourPerson: number = 0;
   countOfFivePerson: number = 0;
-
+  minDate: Date = new Date(new Date().setDate(new Date().getDate() + 1))
+  maxDate: Date = new Date(new Date().setMonth(this.minDate.getMonth() + 1))
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
   });
 
   hotel: any;
-
-
+  priceFourPerson: number = 0;
+  priceTwoPerson: number = 0;
+  priceFivePerson: number = 0;
 
   checkCurrentHotel() {
     var url = this.router.url;
@@ -64,7 +66,8 @@ export class BookingComponent implements OnInit {
   myFilter = (d: Date | null): boolean => {
     const year = (d || new Date()).getFullYear();
     const currentDate = (d || new Date()).getDate();
-    return year == 2023 && new Date().getDate() < currentDate;
+    const currentMonth = (d || new Date()).getMonth();
+    return year == 2023 && new Date().getDate() < currentDate && new Date().getMonth() == currentMonth;
   };
 
   private filterAutocomplete(value: string): string[] {
@@ -87,7 +90,7 @@ export class BookingComponent implements OnInit {
     var timeDif = Math.abs(Number((this.range.controls.end.value)?.getTime()) - Number((this.range.controls.start.value)?.getTime()));
     var diffDays = Math.ceil(timeDif / (1000 * 3600 * 24));
     this.dialog.closeAll();
-    this.router.navigate(["myBookings"]);
+    this.router.navigate(["/"]);
   }
 
 
@@ -103,12 +106,21 @@ export class BookingComponent implements OnInit {
       for (let index = 0; index < this.hotel[0].rooms.length; index++) {
         if (this.hotel[0].rooms[index].type == "2-person" && this.hotel[0].rooms[index].isFree === true) {
           this.countOfTwoPerson++;
+          if (this.priceTwoPerson == 0) {
+            this.priceTwoPerson = this.hotel[0].rooms[index].rent;
+          }
         }
         if (this.hotel[0].rooms[index].type == "Apartments 4-person" && this.hotel[0].rooms[index].isFree === true) {
           this.countOfFourPerson++;
+          if (this.priceFourPerson == 0) {
+            this.priceFourPerson = this.hotel[0].rooms[index].rent;
+          }
         }
         if (this.hotel[0].rooms[index].type == "Family 5-person" && this.hotel[0].rooms[index].isFree === true) {
           this.countOfFivePerson++;
+          if (this.priceFivePerson == 0) {
+            this.priceFivePerson = this.hotel[0].rooms[index].rent;
+          }
         }
       }
     });

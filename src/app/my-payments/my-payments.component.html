@@ -14,6 +14,7 @@
                     <th>Numer pokoju</th>
                     <th>Właściciel karty</th>
                     <th>Numer karty</th>
+                    <th>Zapłacono</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,6 +25,7 @@
                         <td>{{payment.booking.room.number}}</td>
                         <td>{{payment.cardOwnerName}}</td>
                         <td>{{payment.cardNumber}}</td>
+                        <td style="color: green;">{{payment.valueOfPayment}} PLN</td>
                     </tr>
                 </ng-template>
             </tbody>

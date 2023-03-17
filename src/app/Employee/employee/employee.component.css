@@ -33,7 +33,10 @@ h1 {
 
 .employeeHomePage_header {
     background-color: rgb(49, 43, 43);
-    height: 62px;
+    height: 72px;
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
 }
 
 .employeeHomePage_content h1 {
@@ -50,5 +53,5 @@ h1 {
 }
 
 .employeeHomePage_header a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }

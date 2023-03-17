@@ -1,8 +1,8 @@
 .booking {
     background: white;
     padding: 50px;
-    height: 500px;
-    width: 600px;
+    height: 700px;
+    width: 800px;
 }
 
 .booking_inner {
@@ -27,7 +27,7 @@
 }
 
 .card {
-    margin: 40px auto;
+    margin: 60px auto;
     width: 200px;
     height: 200px;
     border-radius: 40px;

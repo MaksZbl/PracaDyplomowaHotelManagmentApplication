@@ -23,7 +23,6 @@ export class AuthPanelGuard implements CanActivate {
         sessionStorage.removeItem("username");
         sessionStorage.removeItem("firstname");
         sessionStorage.removeItem("lastname");
-        this.router.navigate(["/"]);
         return false;
     }
 }

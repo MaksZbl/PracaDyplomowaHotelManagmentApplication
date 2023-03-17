@@ -6,10 +6,11 @@
         <nav class="employeeNav_content">
             <a class="nav_link" routerLink="/employeepanel"><fa-icon [icon]="faHomeIcon"></fa-icon> Home</a>
             <a class="nav_link" routerLink="/employeepanel/rooms"><fa-icon [icon]="faDoorIcon"></fa-icon> Pokoje</a>
-            <a class="nav_link" routerLink="/employeepanel/payments"><fa-icon [icon]="faDoorIcon"
-                    style="margin-right: 4px;"></fa-icon>Płatności</a>
-            <a *ngIf="user=='Manager'" class="nav_link" routerLink="/employeepanel/users"><fa-icon [icon]="faUserIcon"
-                    style="margin-right: 5px;"></fa-icon>Users</a>
+            <a class="nav_link" routerLink="/employeepanel/payments"><fa-icon [icon]="faDoorIcon"></fa-icon>
+                Płatności</a>
+            <a *ngIf="roleValue=='Manager' || roleValue=='Employee'" class="nav_link"
+                routerLink="/employeepanel/users"><fa-icon [icon]="faUserIcon"></fa-icon>
+                Users</a>
         </nav>
     </div>
     <div class="col-md-9 emloyeeHomePage">
@@ -26,7 +27,7 @@
             </div>
         </div>
         <div class="employeeHomePage_content">
-            <h1>Witam na stronie głównej twojej narzędzi dla pracy</h1>
+            <h2 style="font-size: 18px; margin-left: 10px;">Pracownicy</h2>
         </div>
     </div>
 </div>

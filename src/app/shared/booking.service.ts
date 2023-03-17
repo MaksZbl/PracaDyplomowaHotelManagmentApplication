@@ -11,7 +11,7 @@ export class BookingService {
 
   constructor(private router: Router, private http: HttpClient, public toastr: ToastrService) { }
 
-  readonly baseUrl = '/api/Bookings';
+  readonly baseUrl = 'https://localhost:5001/api/Bookings';
 
   postBooking(booking: Booking) {
 
@@ -47,5 +47,15 @@ export class BookingService {
     };
 
     return this.http.get(this.baseUrl, httpOptions);
+  }
+
+  deleteBooking(id: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.getItem("jwt") || ""}`,
+      })
+    };
+    return this.http.delete(`${this.baseUrl}/${id}`, httpOptions);
   }
 }

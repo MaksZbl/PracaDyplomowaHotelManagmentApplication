@@ -21,6 +21,7 @@ export class PaymentService {
       })
     };
     this.formData.booking_id = Number(localStorage.getItem("booking_id"));
+    this.formData.valueOfPayment = Number(localStorage.getItem("difDays")) * Number(localStorage.getItem("price"));
     return this.http.post(this.baseUrl, this.formData, httpOptions);
   }
 

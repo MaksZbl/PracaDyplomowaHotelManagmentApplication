@@ -13,7 +13,7 @@
                 <ul class="list-group">
                     <h5 style="color: yellow; font-size: 16px; font-weight: bold;">Witam {{AuthorizeUserFirstname}}
                         {{AuthorizeUserLastname}}</h5>
-                    <a *ngIf="AuthorizeUserRole === 'Employee' || AuthorizeUserRole === 'Admin'"
+                    <a *ngIf="AuthorizeUserRole === 'Employee' || AuthorizeUserRole === 'Admin' || AuthorizeUserRole === 'Manager'"
                         routerLink="/employeepanel">
                         <li class="list-group-item">Employee panel</li>
                         <fa-icon [icon]="faToolboxIcon" style="color:rgb(25, 0, 255); display: block; padding: 5px; ">

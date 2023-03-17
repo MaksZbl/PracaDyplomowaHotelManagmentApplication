@@ -136,6 +136,7 @@ export class HotelOverviewComponent implements OnInit {
       this.checkType();
       this.rateOfHotel = this.rateService.getAvRate(this.hotel[0].hotel_id).subscribe((res: any) => {
         this.currentRate = res.avRate;
+        this.currentRate = Number(this.currentRate.toFixed(1));
         this.countofReviews = res.count;
       });
     });

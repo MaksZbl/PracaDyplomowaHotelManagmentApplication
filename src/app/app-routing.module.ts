@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BookingComponent } from './Booking/booking/booking.component';
 import { AuthPanelGuard } from './Employee/Auth/auth-panel.guard';
+import { EmployeePanelUsersComponent } from './Employee/employee/employee-panel-users/employee-panel-users.component';
 import { EmployeeComponent } from './Employee/employee/employee.component';
+import { EmployeepanelpaymentsComponent } from './Employee/employee/employeepanelpayments/employeepanelpayments.component';
 import { EmployeepanelroomsComponent } from './Employee/employee/employeepanelrooms/employeepanelrooms.component';
 import { HomeComponent } from './home/home.component';
 import { RegistrationComponent } from './home/registration/registration.component';
@@ -23,6 +25,8 @@ const routes: Routes = [
   { path: 'hotels/MemoriesPalaceLuxuryResort&SpaGdynia', component: HotelOverviewComponent },
   { path: 'employeepanel', component: EmployeeComponent, canActivate: [AuthPanelGuard] },
   { path: 'employeepanel/rooms', component: EmployeepanelroomsComponent, canActivate: [AuthPanelGuard] },
+  { path: 'employeepanel/payments', component: EmployeepanelpaymentsComponent, canActivate: [AuthPanelGuard] },
+  { path: 'employeepanel/users', component: EmployeePanelUsersComponent, canActivate: [AuthPanelGuard] },
   { path: 'hotels/MemoriesPalaceHotels&SpaPiotrkowTrybunalski/booking', component: BookingComponent, canActivate: [AuthPanelGuard] },
   { path: 'hotels/MemoriesPalaceLuxuryResortZakopane/booking', component: BookingComponent, canActivate: [AuthPanelGuard] },
   { path: 'hotels/MemoriesPalaceLuxuryResortWarszawa/booking', component: BookingComponent, canActivate: [AuthPanelGuard] },

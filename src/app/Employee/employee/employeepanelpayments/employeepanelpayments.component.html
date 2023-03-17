@@ -1,0 +1,61 @@
+<div class="employeeHome">
+    <div class="col-md-3 emloyeeNav">
+        <div class="employeeNav_header">
+            <h1 class="employeeNav_header_title">Employee panel</h1>
+        </div>
+        <nav class="employeeNav_content">
+            <a class="nav_link" routerLink="/employeepanel"><fa-icon [icon]="faHomeIcon"></fa-icon> Home</a>
+            <a class="nav_link" routerLink="/employeepanel/rooms"><fa-icon [icon]="faDoorIcon"></fa-icon> Pokoje</a>
+            <a class="nav_link" routerLink="/employeepanel/payments"><fa-icon [icon]="faDoorIcon"></fa-icon>
+                Płatności</a>
+            <a *ngIf="roleValue=='Manager' || roleValue=='Employee'" class="nav_link"
+                routerLink="/employeepanel/users"><fa-icon [icon]="faUserIcon"></fa-icon>
+                Users</a>
+        </nav>
+    </div>
+    <div class="col-md-9 emloyeeHomePage">
+        <div class="employeeHomePage_header">
+            <button class="btn btn-secondary" style="padding: 0px">
+                <a routerLink="/">
+                    <fa-icon [icon]="faHomeIcon"></fa-icon>
+                    Strona główna
+                </a>
+            </button>
+            <div class="userInfo" style="text-align: center;padding: 5px 30px 0 0; ">
+                <p style="font-size: 18px;">{{nameOfUser}} {{surnameOfUser}}</p>
+                <p style="font-size: 20px; color: yellow;">{{roleValue}}</p>
+            </div>
+        </div>
+        <div class="employeeHomePage_content">
+            <h2 style="font-size: 18px; margin-left: 10px;">Płatności</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Hotel title</th>
+                        <th scope="col">Numer pokoju</th>
+                        <th scope="col">Typ pokoju</th>
+                        <th scope="col">Imie klienta</th>
+                        <th scope="col">Nazwisko klienta</th>
+                        <th scope="col">Numer karty</th>
+                        <th scope="col">Kwota</th>
+                    </tr>
+                </thead>
+                <ng-template ngFor let-payment [ngForOf]="PaymentList">
+                    <tbody style="font-size: 20px;">
+                        <tr>
+                            <th scope="row">{{payment.booking.room.hotel.title}}</th>
+                            <td scope="row" style="border: 3px solid red;">{{payment.booking.room.number}}</td>
+                            <td scope="row">{{payment.booking.room.type}}</td>
+                            <td scope="row">{{payment.booking.loggedInUser.firstName}}</td>
+                            <td scope="row" style="color: green; border: 3px solid rgb(0, 0, 0);">
+                                {{payment.booking.loggedInUser.lastName}}</td>
+                            <td scope="row">{{payment.cardNumber}}</td>
+                            <td scope="row" style="color: rgb(41, 128, 0); border: 3px solid green;">
+                                {{payment.valueOfPayment}} PLN</td>
+                        </tr>
+                    </tbody>
+                </ng-template>
+            </table>
+        </div>
+    </div>
+</div>

@@ -4,7 +4,7 @@
         <form action="">
             <mat-form-field color="accent" appearance="fill">
                 <mat-label>Enter a date range</mat-label>
-                <mat-date-range-input [dateFilter]="myFilter" [formGroup]="range" [rangePicker]="picker">
+                <mat-date-range-input [min]="minDate" [max]="maxDate" [formGroup]="range" [rangePicker]="picker">
                     <input matStartDate readonly formControlName="start" placeholder="Start date">
                     <input matEndDate readonly formControlName="end" placeholder="End date">
                 </mat-date-range-input>
@@ -14,9 +14,6 @@
                 <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
                 <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
             </mat-form-field>
-            <p style="font-family: KaushanScript; margin-top: 10px; font-size: 20px;">Date pobytu przyjmujemy tylko na
-                2023
-                rok</p>
         </form>
         <form class="form-autocomplete" style="margin-top: 20px;">
             <mat-form-field class="example-full-width" appearance="fill">
@@ -38,6 +35,7 @@
                 <div class="card_title title-white">
                     <p>Dla dwóch osób</p>
                     <p>Dostępnośc: {{countOfTwoPerson}}</p>
+                    <p>Cena za 1 noc: {{priceTwoPerson}} PLN</p>
                 </div>
             </div>
             <div class="card">
@@ -45,6 +43,7 @@
                 <div class="card_title title-white">
                     <p>Dla czterech osób</p>
                     <p>Dostępnośc: {{countOfFourPerson}}</p>
+                    <p>Cena za 1 noc: {{priceFourPerson}} PLN</p>
                 </div>
             </div>
             <div class="card">
@@ -52,6 +51,7 @@
                 <div class="card_title title-white">
                     <p>Dla pięciu osób</p>
                     <p>Dostępnośc: {{countOfFivePerson}}</p>
+                    <p>Cena za 1 noc: {{priceFivePerson}} PLN</p>
                 </div>
             </div>
         </div>
